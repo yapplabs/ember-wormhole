@@ -1,0 +1,17 @@
+{{#current-user as |user|}}
+  <button {{action 'toggleModal'}}>Toggle Modal</button>
+  <label>
+    Username: {{input value=user.username class="username"}}
+  </label>
+  {{#if isShowingModal}}
+    {{#ember-wormhole to='modals'}}
+      <div class="overlay" {{action 'toggleModal'}}></div>
+      <div class="dialog">
+        <h1>Hi, I'm a simple modal dialog</h1>
+        <p>Here we have some content which is bound from the context
+          where the wormhole component was used: "{{user.username}}"</p>
+        <button {{action 'toggleModal'}}>Close</button>
+      </div>
+    {{/ember-wormhole}}
+  {{/if}}
+{{/current-user}}

@@ -1,0 +1,17 @@
+{{#current-user as |user|}}
+  <button {{action 'toggleSidebarContent'}}>Toggle Sidebar Content</button>
+  <label>
+    First Name: {{input value=user.firstName class="first-name"}}
+  </label>
+  <label>
+    Last Name: {{input value=user.lastName class="last-name"}}
+  </label>
+  {{#if isShowingSidebarContent}}
+    {{#ember-wormhole to='sidebar'}}
+      <h1>Epic sidebar action</h1>
+      <p>Here we have some content which is bound from the context
+        where the wormhole component was used: "{{user.fullName}}"</p>
+      <button {{action 'toggleSidebarContent'}}>Hide Sidebar Content</button>
+    {{/ember-wormhole}}
+  {{/if}}
+{{/current-user}}
