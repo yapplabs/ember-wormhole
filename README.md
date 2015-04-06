@@ -29,6 +29,8 @@ Given the following DOM:
 
 ```html
 <body class="ember-application">
+  <!-- Destination must be in the same element as your ember app -->
+  <!-- otherwise events/bindings will not work -->
   <div id="destination">
   </div>
   <div class="ember-view">
