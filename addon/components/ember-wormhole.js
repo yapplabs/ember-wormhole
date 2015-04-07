@@ -1,14 +1,20 @@
 import Ember from 'ember';
 
 var computed = Ember.computed;
+var observes = Ember.observer;
 
 export default Ember.Component.extend({
   tagName: '',
-
-  to: computed.alias('destinationElementId'),
+  
   destinationElementId: null,
+  to: computed.alias('destinationElementId'),
+  
   destinationElement: computed('destinationElementId', function() {
     return document.getElementById(this.get('destinationElementId'));
+  }),
+
+  rerenderOnDestinationChange: observes('destinationElementId', function() {
+    this.rerender();
   }),
 
   render: function(buffer) {
