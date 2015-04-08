@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 var computed = Ember.computed;
 var observes = Ember.observer;
+var run = Ember.run;
 
 export default Ember.Component.extend({
   tagName: '',
@@ -14,7 +15,7 @@ export default Ember.Component.extend({
   }),
 
   rerenderOnDestinationChange: observes('destinationElementId', function() {
-    this.rerender();
+    run.once(this, 'rerender');
   }),
 
   render: function(buffer) {
