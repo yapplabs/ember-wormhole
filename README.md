@@ -1,8 +1,8 @@
 # Ember Wormhole [![Build Status](https://travis-ci.org/yapplabs/ember-wormhole.svg?branch=master)](https://travis-ci.org/yapplabs/ember-wormhole)
 
-This ember-cli addon provides a component that allows for rendering a block
-in a typical Ember context in terms of bound data and action handling, but
-attached to a DOM element somewhere else on the page.
+This ember-cli addon provides a component that allows for rendering a block 
+to a DOM element somewhere else on the page. The component retains typical Ember 
+context in terms of bound data and action handling.
 
 ## But Why?
 
@@ -11,15 +11,13 @@ a component but needs to render as a top-level DOM element, such as a confirmati
 
 ## And How?
 
-This component takes advantage of a private API of HTMLBars (we're hoping to craft a public
-API so we can be confident this library will continue to work in future versions of
-Ember). An Ember Component has a `_morph` property which its children are attached to.
-In a typical component, `_morph` is the component's element, a `div` by default.
-ember-wormhole sets the component's `_morph` to an element that you point it at. As a
-result, the component's children are attached to that element in the DOM. That includes
-usages of `yield`, so blocks provided to `ember-wormhole` appear in another part of
-the DOM. Nothing else changes -- data binding and action bubbling still flow according
-to the Ember component hierarchy.
+This component tracks its element's child nodes. When inserted into the DOM, it appends 
+its child nodes to a destination element elsewhere. When removed from the DOM, it
+removes its child nodes, so as not to orphan them on the other side of the wormhole. 
+
+Nothing else changes -- data binding  and action bubbling still flow according to 
+the Ember component hierarchy. That includes usages of `yield`, so blocks provided 
+to `ember-wormhole` simply appear in another part of the DOM.
 
 ## Show Me Some Code!
 
@@ -49,7 +47,7 @@ and a template like this:
 
 Then "Hello world!" would be rendered inside the `destination` div.
 
-If the ember-wormhole is destroyed it's far-off children are destroyed too.
+If the ember-wormhole is destroyed its far-off children are destroyed too.
 For example, given:
 
 ```hbs

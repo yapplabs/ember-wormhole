@@ -3,13 +3,20 @@ body {
   font-size: 14px;
   line-height: 1.4em;
 }
-#sidebar {
+.sidebar {
   margin-left:40px;
   padding:20px;
-  float:right;
-  min-height: 500px;
+  min-height: 300px;
   border:1px solid #999;
   width:200px;
+  position: fixed;
+  right: 0;
+}
+#othersidebar {
+  top: 400px;
+}
+.example {
+  margin-right: 240px;
 }
 .example {
   border: 1px dotted #ccc;
