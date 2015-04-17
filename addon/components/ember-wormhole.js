@@ -1,17 +1,38 @@
 import Ember from 'ember';
 
 var computed = Ember.computed;
+var observer = Ember.observer;
+var run = Ember.run;
 
 export default Ember.Component.extend({
-  tagName: '',
-
   to: computed.alias('destinationElementId'),
   destinationElementId: null,
   destinationElement: computed('destinationElementId', function() {
     return document.getElementById(this.get('destinationElementId'));
   }),
 
-  render: function(buffer) {
+  didInsertElement: function() {
+    this._firstNode = this.element.firstChild;
+    this._lastNode = this.element.lastChild;
+    this.appendToDestination();
+  },
+
+  willDestroyElement: function() {
+    var firstNode = this._firstNode;
+    var lastNode = this._lastNode;
+    Ember.run.schedule('afterRender', () => {
+      this.removeRange(firstNode, lastNode);
+    });
+  },
+
+  destinationDidChange: observer('destinationElement', function() {
+    var destinationElement = this.get('destinationElement');
+    if (destinationElement !== this._firstNode.parentNode) {
+      run.schedule('render', this, 'appendToDestination');
+    }
+  }),
+
+  appendToDestination: function() {
     var destinationElement = this.get('destinationElement');
     if (!destinationElement) {
       var destinationElementId = this.get('destinationElementId');
@@ -21,13 +42,25 @@ export default Ember.Component.extend({
         throw new Error('ember-wormhole failed to render content because the destinationElementId was set to an undefined or falsy value.');
       }
     }
-    this._morph = buffer.dom.appendMorph(destinationElement);
-    this._super.apply(this, arguments);
+    this.appendRange(destinationElement, this._firstNode, this._lastNode);
   },
 
-  willClearRender: function() {
-    var morph = this._morph;
-    Ember.run.schedule('render', morph, morph.destroy);
-    this._super.apply(this);
+  appendRange: function(destinationElement, firstNode, lastNode) {
+    while(firstNode) {
+      destinationElement.insertBefore(firstNode, null);
+      firstNode = firstNode !== lastNode ? lastNode.parentNode.firstChild : null;
+    }
+  },
+
+  removeRange: function(firstNode, lastNode) {
+    var node = lastNode;
+    do {
+      var next = node.previousSibling;
+      if (node.parentNode) {
+        node.parentNode.removeChild(node);
+      }
+      node = next;
+    } while (node !== firstNode);
   }
+
 });
