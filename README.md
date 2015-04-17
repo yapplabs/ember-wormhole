@@ -1,4 +1,4 @@
-# Ember Wormhole [![Build Status](https://travis-ci.org/yapplabs/ember-wormhole.svg?branch=master)](https://travis-ci.org/yapplabs/ember-wormhole)
+# Ember Wormhole [![Build Status](https://travis-ci.org/yapplabs/ember-wormhole.svg?branch=master)](https://travis-ci.org/yapplabs/ember-wormhole) [![Ember Observer Score](http://emberobserver.com/badges/ember-wormhole.svg)](http://emberobserver.com/addons/ember-wormhole)
 
 This ember-cli addon provides a component that allows for rendering a block 
 to a DOM element somewhere else on the page. The component retains typical Ember 
