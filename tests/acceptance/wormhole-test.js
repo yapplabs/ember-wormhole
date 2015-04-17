@@ -51,7 +51,7 @@ test('modal example', function(assert) {
 });
 
 test('sidebar example', function(assert) {
-  var sidebarView;
+  var sidebarWormhole;
   var header1, header2;
   var sidebarFirstNode1, sidebarFirstNode2;
 
@@ -61,8 +61,8 @@ test('sidebar example', function(assert) {
   });
   click('button:contains(Toggle Sidebar Content)');
   andThen(function() {
-    sidebarView = Ember.View.views.sidebarWormhole;
-    sidebarFirstNode1 = sidebarView._firstNode;
+    sidebarWormhole = Ember.View.views.sidebarWormhole;
+    sidebarFirstNode1 = sidebarWormhole._firstNode;
     header1 = Ember.$('#sidebar h1');
     assert.contentInSidebar('sidebar');
   });
@@ -73,7 +73,7 @@ test('sidebar example', function(assert) {
   });
   click('#sidebar button:contains(Switch)');
   andThen(function() {
-    sidebarFirstNode2 = sidebarView._firstNode;
+    sidebarFirstNode2 = sidebarWormhole._firstNode;
     header2 = Ember.$('#othersidebar h1');
     assert.equal(header1.text(), header2.text(), 'same header text');
     assert.ok(header1.is(header2), 'same header elements'); // appended elsewhere
@@ -94,7 +94,7 @@ test('sidebar example', function(assert) {
 });
 
 test('survives rerender', function(assert) {
-  var sidebarView;
+  var sidebarWormhole;
   var header1, header2;
   var sidebarFirstNode1, sidebarFirstNode2;
 
@@ -105,8 +105,8 @@ test('survives rerender', function(assert) {
 
   click('button:contains(Toggle Sidebar Content)');
   andThen(function() {
-    sidebarView = Ember.View.views.sidebarWormhole;
-    sidebarFirstNode1 = sidebarView._firstNode;
+    sidebarWormhole = Ember.View.views.sidebarWormhole;
+    sidebarFirstNode1 = sidebarWormhole._firstNode;
     header1 = Ember.$('#sidebar h1');
     assert.contentInSidebar('sidebar');
   });
@@ -118,15 +118,47 @@ test('survives rerender', function(assert) {
   });
 
   andThen(function() {
-    sidebarView.rerender();
+    sidebarWormhole.rerender();
   });
 
   andThen(function() {
-    sidebarFirstNode2 = sidebarView._firstNode;
+    sidebarFirstNode2 = sidebarWormhole._firstNode;
     header2 = Ember.$('#sidebar h1');
     assert.contentInSidebar('sidebar', 'p:contains(Ringo Starr)');
     assert.equal(header1.text(), header2.text(), 'same header text');
     assert.ok(!header1.is(header2), 'different header elements'); // rerendered
     assert.ok(!sidebarFirstNode1.isSameNode(sidebarFirstNode2), 'different first nodes'); // rerendered
+  });
+});
+
+test('throws if destination element not in DOM', function(assert) {
+  visit('/');
+  andThen(function() {
+    Ember.$('#sidebar').remove();
+  });
+  var wormholeToMissingSidebar = function() {
+    Ember.$('button:contains(Toggle Sidebar Content)').click();
+  };
+  andThen(function() {
+    assert.throws(
+      wormholeToMissingSidebar,
+      /ember-wormhole failed to render into/,
+      'throws on missing destination element'
+    );
+  });
+});
+
+test('throws if destination element id falsy', function(assert) {
+  visit('/');
+  var wormholeToNowhere = function() {
+    application.__container__.lookup('controller:application').set('sidebarId', null);
+    Ember.$('button:contains(Toggle Sidebar Content)').click();
+  };
+  andThen(function() {
+    assert.throws(
+      wormholeToNowhere,
+      /ember-wormhole failed to render content because the destinationElementId/,
+      'throws on missing destination element id'
+    );
   });
 });

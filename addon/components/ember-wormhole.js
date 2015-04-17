@@ -20,7 +20,7 @@ export default Ember.Component.extend({
   willDestroyElement: function() {
     var firstNode = this._firstNode;
     var lastNode = this._lastNode;
-    Ember.run.schedule('afterRender', () => {
+    run.schedule('render', () => {
       this.removeRange(firstNode, lastNode);
     });
   },
@@ -38,9 +38,8 @@ export default Ember.Component.extend({
       var destinationElementId = this.get('destinationElementId');
       if (destinationElementId) {
         throw new Error(`ember-wormhole failed to render into '#${this.get('destinationElementId')}' because the element is not in the DOM`);
-      } else {
-        throw new Error('ember-wormhole failed to render content because the destinationElementId was set to an undefined or falsy value.');
       }
+      throw new Error('ember-wormhole failed to render content because the destinationElementId was set to an undefined or falsy value.');
     }
     this.appendRange(destinationElement, this._firstNode, this._lastNode);
   },
