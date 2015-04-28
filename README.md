@@ -65,6 +65,24 @@ Similarly, if you use `ember-wormhole` in a route's template, it will
 render its children in the destination element when the route is entered
 and remove them when the route is exited.
 
+## Can I Render In Place (i.e. Unwormhole)?
+
+Yes! Sometimes you feel like a wormhole. Sometimes you don't. Situations 
+sometimes call for the same content to be rendered through the wormhole or in place.
+
+In this example, `renderInPlace` will override `to` and cause the wormhole content to be rendered in place.
+
+```hbs
+{{#ember-wormhole to="destination" renderInPlace="true"}}
+  Hello world!
+{{/ember-wormhole}}
+```
+
+This technique is useful for:
+
+- Presenting typically-wormholed content within a styleguide
+- Toggling content back and forth through the wormhole
+
 ## Development Setup
 
 ### Installation
