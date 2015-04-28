@@ -9,11 +9,11 @@ import startApp from 'dummy/tests/helpers/start-app';
 var application;
 var assert = QUnit.assert;
 
-assert.contentInSidebar = function(sidebarId, content) {
+assert.contentIn = function(sidebarId, content) {
   content = content || 'h1';
   this.equal(findWithAssert(`#${sidebarId} ${content}`).length, 1, `content is visible in sidebar #${sidebarId}`);
 };
-assert.contentNotInSidebar = function(sidebarId, content) {
+assert.contentNotIn = function(sidebarId, content) {
   content = content || 'h1';
   this.equal(find(`#${sidebarId} ${content}`).length, 0, `content is not visible in sidebar #${sidebarId}`);
 };
@@ -64,12 +64,12 @@ test('sidebar example', function(assert) {
     sidebarWormhole = Ember.View.views.sidebarWormhole;
     sidebarFirstNode1 = sidebarWormhole._firstNode;
     header1 = Ember.$('#sidebar h1');
-    assert.contentInSidebar('sidebar');
+    assert.contentIn('sidebar');
   });
   fillIn('.first-name', 'Ray');
   fillIn('.last-name', 'Cohen');
   andThen(function() {
-    assert.contentInSidebar('sidebar', 'p:contains(Ray Cohen)');
+    assert.contentIn('sidebar', 'p:contains(Ray Cohen)');
   });
   click('#sidebar button:contains(Switch)');
   andThen(function() {
@@ -78,18 +78,52 @@ test('sidebar example', function(assert) {
     assert.equal(header1.text(), header2.text(), 'same header text');
     assert.ok(header1.is(header2), 'same header elements'); // appended elsewhere
     assert.ok(sidebarFirstNode1.isSameNode(sidebarFirstNode2), 'different first nodes'); // appended elsewhere
-    assert.contentNotInSidebar('sidebar');
-    assert.contentInSidebar('othersidebar');
+    assert.contentNotIn('sidebar');
+    assert.contentIn('othersidebar');
   });
   click('#othersidebar button:contains(Switch)');
   andThen(function() {
-    assert.contentInSidebar('sidebar');
-    assert.contentNotInSidebar('othersidebar');
+    assert.contentIn('sidebar');
+    assert.contentNotIn('othersidebar');
   });
   click('#sidebar button:contains(Hide)');
   andThen(function() {
-    assert.contentNotInSidebar('sidebar');
-    assert.contentNotInSidebar('othersidebar');
+    assert.contentNotIn('sidebar');
+    assert.contentNotIn('othersidebar');
+  });
+});
+
+test('sidebar example in place', function(assert) {
+  visit('/');
+  click('button:contains(Toggle Sidebar Content)');
+  andThen(function() {
+    assert.contentIn('sidebar');
+    assert.contentNotIn('othersidebar');
+    assert.contentNotIn('example-sidebar');
+  });
+  click('button:contains(Toggle In Place)');
+  andThen(function() {
+    assert.contentNotIn('sidebar');
+    assert.contentNotIn('othersidebar');
+    assert.contentIn('example-sidebar');
+  });
+  click('button:contains(Switch Sidebars From Without)');
+  andThen(function() {
+    assert.contentNotIn('sidebar');
+    assert.contentNotIn('othersidebar');
+    assert.contentIn('example-sidebar');
+  });
+  click('button:contains(Toggle In Place)');
+  andThen(function() {
+    assert.contentNotIn('sidebar');
+    assert.contentIn('othersidebar');
+    assert.contentNotIn('example-sidebar');
+  });
+  click('#othersidebar button:contains(Hide)');
+  andThen(function() {
+    assert.contentNotIn('sidebar');
+    assert.contentNotIn('othersidebar');
+    assert.contentNotIn('example-sidebar');
   });
 });
 
@@ -108,13 +142,13 @@ test('survives rerender', function(assert) {
     sidebarWormhole = Ember.View.views.sidebarWormhole;
     sidebarFirstNode1 = sidebarWormhole._firstNode;
     header1 = Ember.$('#sidebar h1');
-    assert.contentInSidebar('sidebar');
+    assert.contentIn('sidebar');
   });
 
   fillIn('.first-name', 'Ringo');
   fillIn('.last-name', 'Starr');
   andThen(function() {
-    assert.contentInSidebar('sidebar', 'p:contains(Ringo Starr)');
+    assert.contentIn('sidebar', 'p:contains(Ringo Starr)');
   });
 
   andThen(function() {
@@ -124,7 +158,7 @@ test('survives rerender', function(assert) {
   andThen(function() {
     sidebarFirstNode2 = sidebarWormhole._firstNode;
     header2 = Ember.$('#sidebar h1');
-    assert.contentInSidebar('sidebar', 'p:contains(Ringo Starr)');
+    assert.contentIn('sidebar', 'p:contains(Ringo Starr)');
     assert.equal(header1.text(), header2.text(), 'same header text');
     assert.ok(!header1.is(header2), 'different header elements'); // rerendered
     assert.ok(!sidebarFirstNode1.isSameNode(sidebarFirstNode2), 'different first nodes'); // rerendered

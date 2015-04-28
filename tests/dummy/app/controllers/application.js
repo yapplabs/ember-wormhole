@@ -6,6 +6,7 @@ export default Ember.Controller.extend({
   isShowingModal: false,
   isShowingSidebarContent: false,
   sidebarId: 'sidebar',
+  isInPlace: false,
   actions: {
     toggleModal() {
       this.toggleProperty('isShowingModal');
@@ -16,6 +17,9 @@ export default Ember.Controller.extend({
     switchSidebars() {
       var otherSidebarId = this.sidebarId === 'sidebar' ? 'othersidebar' : 'sidebar';
       set(this, 'sidebarId', otherSidebarId);
+    },
+    toggleInPlace() {
+      this.toggleProperty('isInPlace');
     }
   }
 });

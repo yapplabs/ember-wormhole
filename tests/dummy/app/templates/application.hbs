@@ -46,7 +46,8 @@
   <h2>Sidebar Example</h2>
   {{#current-user as |user|}}
     <button {{action 'toggleSidebarContent'}}>Toggle Sidebar Content</button>
-    <button {{action 'switchSidebars'}}>Switch Sidebars</button>
+    <button {{action 'switchSidebars'}}>Switch Sidebars From Without</button>
+    <button {{action 'toggleInPlace'}}>Toggle In Place</button>
     <label>
       First Name: {{input value=user.firstName class="first-name"}}
     </label>
@@ -55,12 +56,12 @@
     </label>
     {{code-snippet name='sidebar.hbs'}}
     {{#if isShowingSidebarContent}}
-      {{#ember-wormhole to=sidebarId id='sidebarWormhole'}}
+      {{#ember-wormhole to=sidebarId id='sidebarWormhole' renderInPlace=isInPlace}}
         <h1>Epic sidebar action</h1>
         <p>Here we have some content which is bound from the context
           where the wormhole component was used: "{{user.fullName}}"</p>
         <button {{action 'toggleSidebarContent'}}>Hide Sidebar Content</button>
-        <button {{action 'switchSidebars'}}>Switch Sidebars</button>
+        <button {{action 'switchSidebars'}}>Switch Sidebars From Within</button>
       {{/ember-wormhole}}
     {{/if}}
   {{/current-user}}

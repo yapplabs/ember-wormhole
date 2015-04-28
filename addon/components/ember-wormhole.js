@@ -7,9 +7,10 @@ var run = Ember.run;
 export default Ember.Component.extend({
   to: computed.alias('destinationElementId'),
   destinationElementId: null,
-  destinationElement: computed('destinationElementId', function() {
-    return document.getElementById(this.get('destinationElementId'));
+  destinationElement: computed('destinationElementId', 'renderInPlace', function() {
+    return this.get('renderInPlace') ? this.element : document.getElementById(this.get('destinationElementId'));
   }),
+  renderInPlace: false,
 
   didInsertElement: function() {
     this._firstNode = this.element.firstChild;

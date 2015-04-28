@@ -7,7 +7,7 @@
     Last Name: {{input value=user.lastName class="last-name"}}
   </label>
   {{#if isShowingSidebarContent}}
-    {{#ember-wormhole to='sidebar'}}
+    {{#ember-wormhole to='sidebar' renderInPlace=isInPlace}}
       <h1>Epic sidebar action</h1>
       <p>Here we have some content which is bound from the context
         where the wormhole component was used: "{{user.fullName}}"</p>
