@@ -82,6 +82,7 @@ This technique is useful for:
 
 - Presenting typically-wormholed content within a styleguide
 - Toggling content back and forth through the wormhole
+- Parlor tricks
 
 ## Development Setup
 
