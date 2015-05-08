@@ -21,7 +21,7 @@ script:
 
 env:
   - EMBER_TRY_SCENARIO="Ember 1.10.0"
-  - EMBER_TRY_SCENARIO="Ember 1.11.1"
+  - EMBER_TRY_SCENARIO="Ember 1.11.3"
   - EMBER_TRY_SCENARIO="Ember Beta"
   - EMBER_TRY_SCENARIO="Ember Canary"
 
