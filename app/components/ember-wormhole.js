@@ -1,2 +1,1 @@
-import Component from 'ember-wormhole/components/ember-wormhole';
-export default Component;
+import { default } from 'ember-wormhole/components/ember-wormhole';
