@@ -13,8 +13,8 @@ export default Ember.Component.extend({
   renderInPlace: false,
 
   didInsertElement: function() {
-    this._firstNode = this.element.firstChild;
-    this._lastNode = this.element.lastChild;
+    this._firstNode = this._ensureRangeEndpoint('first');
+    this._lastNode = this._ensureRangeEndpoint('last');
     this.appendToDestination();
   },
 
@@ -61,6 +61,18 @@ export default Ember.Component.extend({
       }
       node = next;
     } while (node !== firstNode);
+  },
+
+  _ensureRangeEndpoint(position) {
+    var existingEndpoint = position === 'first' ? this.element.firstChild : this.element.lastChild;
+    var valid = ((existingEndpoint.nodeType === 3) && (existingEndpoint.nodeValue === '\n')); // blank text node
+    if (valid) {
+      return existingEndpoint;
+    }
+    var newEndpoint = document.createTextNode('\n');
+    var sibling = position === 'first' ? existingEndpoint : null;
+    this.element.insertBefore(newEndpoint, sibling);
+    return newEndpoint;
   }
 
 });
