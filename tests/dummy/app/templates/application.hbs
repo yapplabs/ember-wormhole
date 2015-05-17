@@ -1,4 +1,11 @@
-<<h1 id="title">ember-wormhole</h1>
+{{x-favicon href=favicon}}
+
+{{#if isTestingDocumentTitle}}
+  {{#document-title}} Testing{{/document-title}}
+{{/if}}
+{{#document-title}}ember-wormhole{{/document-title}}
+
+<h1 id="title">ember-wormhole</h1>
 
 {{outlet}}
 
@@ -19,6 +26,16 @@
   <code>user</code> object and is used to demonstrate bound values across
   the wormhole boundary.
 </p>
+
+<p>
+  In addition to the visible wormholes on screen, there are components
+  that inject Ember into the <code>head</code> of the page.
+</p>
+
+<button id="toggle-title" {{action 'toggleTitle'}}>Toggle Title</button>
+<label>
+  Favicon: {{input value=favicon class="favicon"}}
+</label>
 
 <div class='example' id='example-modal'>
   <h2>Modal Example</h2>
