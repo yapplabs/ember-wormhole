@@ -65,7 +65,7 @@ export default Ember.Component.extend({
 
   _ensureRangeEndpoint(position) {
     var existingEndpoint = position === 'first' ? this.element.firstChild : this.element.lastChild;
-    var valid = ((existingEndpoint.nodeType === 3) && (existingEndpoint.nodeValue === '\n')); // blank text node
+    var valid = ((existingEndpoint.nodeType === 3) && (Ember.isEmpty(existingEndpoint.nodeValue.trim()))); // blank text node
     if (valid) {
       return existingEndpoint;
     }
