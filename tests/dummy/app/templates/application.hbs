@@ -22,12 +22,13 @@
 
 <div class='example' id='example-modal'>
   <h2>Modal Example</h2>
+  {{code-snippet name='modal.hbs'}}
+  {{!-- BEGIN-SNIPPET modal --}}
+  <button {{action 'toggleModal'}}>Toggle Modal</button>
   {{#current-user as |user|}}
-    <button {{action 'toggleModal'}}>Toggle Modal</button>
     <label>
       Username: {{input value=user.username class="username"}}
     </label>
-    {{code-snippet name='modal.hbs'}}
     {{#if isShowingModal}}
       {{#ember-wormhole to='modals'}}
         <div class="overlay" {{action 'toggleModal'}}></div>
@@ -40,10 +41,13 @@
       {{/ember-wormhole}}
     {{/if}}
   {{/current-user}}
+  {{!-- END-SNIPPET --}}
 </div>
 
 <div class='example' id='example-sidebar'>
   <h2>Sidebar Example</h2>
+  {{code-snippet name='sidebar.hbs'}}
+  {{!-- BEGIN-SNIPPET sidebar --}}
   {{#current-user as |user|}}
     <button {{action 'toggleSidebarContent'}}>Toggle Sidebar Content</button>
     <button {{action 'switchSidebars'}}>Switch Sidebars From Without</button>
@@ -54,7 +58,6 @@
     <label>
       Last Name: {{input value=user.lastName class="last-name"}}
     </label>
-    {{code-snippet name='sidebar.hbs'}}
     {{#if isShowingSidebarContent}}
       {{#ember-wormhole to=sidebarId id='sidebarWormhole' renderInPlace=isInPlace}}
         <h1>Epic sidebar action</h1>
@@ -65,4 +68,5 @@
       {{/ember-wormhole}}
     {{/if}}
   {{/current-user}}
+  {{!-- END-SNIPPET --}}
 </div>
