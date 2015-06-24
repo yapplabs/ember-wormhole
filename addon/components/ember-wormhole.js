@@ -58,9 +58,12 @@ export default Ember.Component.extend({
       var next = node.previousSibling;
       if (node.parentNode) {
         node.parentNode.removeChild(node);
+        if (node === firstNode) {
+          break;
+        }
       }
       node = next;
-    } while (node !== firstNode);
+    } while (node);
   }
 
 });
