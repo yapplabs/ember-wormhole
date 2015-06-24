@@ -4,6 +4,10 @@ This ember-cli addon provides a component that allows for rendering a block
 to a DOM element somewhere else on the page. The component retains typical Ember 
 context in terms of bound data and action handling.
 
+## Live Demo
+
+View a live demo here: [http://yapplabs.github.io/ember-wormhole/](http://yapplabs.github.io/ember-wormhole/)
+
 ## But Why?
 
 This library is particularly useful for cases where you have UI that is the logical child of

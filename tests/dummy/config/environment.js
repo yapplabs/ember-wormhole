@@ -19,6 +19,10 @@ module.exports = function(environment) {
     }
   };
 
+  if (environment === 'production') {
+    ENV.baseURL = '/ember-wormhole'; // for gh-pages live demo
+  }
+
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
