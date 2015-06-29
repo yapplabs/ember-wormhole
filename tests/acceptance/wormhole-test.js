@@ -181,18 +181,3 @@ test('throws if destination element not in DOM', function(assert) {
     );
   });
 });
-
-test('throws if destination element id falsy', function(assert) {
-  visit('/');
-  var wormholeToNowhere = function() {
-    application.__container__.lookup('controller:application').set('sidebarId', null);
-    Ember.$('button:contains(Toggle Sidebar Content)').click();
-  };
-  andThen(function() {
-    assert.throws(
-      wormholeToNowhere,
-      /ember-wormhole failed to render content because the destinationElementId/,
-      'throws on missing destination element id'
-    );
-  });
-});
