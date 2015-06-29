@@ -50,6 +50,23 @@ test('modal example', function(assert) {
   });
 });
 
+test('non-id-selector-based modal example', function(assert) {
+  visit('/');
+  andThen(function() {
+    assert.equal(currentPath(), 'index');
+  });
+  click('button:contains(Toggle Another Modal)');
+  andThen(function() {
+    assert.equal(Ember.$('.modal2 .overlay').length, 1, 'overlay is visible');
+    assert.equal(Ember.$('.modal2 .dialog').length, 1, 'dialog is visible');
+  });
+  click('.modal2 .overlay');
+  andThen(function() {
+    assert.equal(Ember.$('.modal2 .overlay').length, 0, 'overlay is not visible');
+    assert.equal(Ember.$('.modal2 .dialog').length, 0, 'dialog is not visible');
+  });
+});
+
 test('sidebar example', function(assert) {
   var sidebarWormhole;
   var header1, header2;
@@ -191,7 +208,7 @@ test('throws if destination element id falsy', function(assert) {
   andThen(function() {
     assert.throws(
       wormholeToNowhere,
-      /ember-wormhole failed to render content because the destinationElementId/,
+      /ember-wormhole failed to render content because the destinationElement/,
       'throws on missing destination element id'
     );
   });

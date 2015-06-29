@@ -69,6 +69,16 @@ Similarly, if you use `ember-wormhole` in a route's template, it will
 render its children in the destination element when the route is entered
 and remove them when the route is exited.
 
+If you wish to render into an element that's not an id, you may do something likt his
+
+```hbs
+{{#if isWormholeEnabled}}
+  {{#ember-wormhole destinationElementSelector="#ember1337 .component-body"}}
+    Hello world!
+  {{/ember-wormhole}}
+{{/if}}
+```
+
 ## Can I Render In Place (i.e. Unwormhole)?
 
 Yes! Sometimes you feel like a wormhole. Sometimes you don't. Situations 
@@ -87,6 +97,31 @@ This technique is useful for:
 - Presenting typically-wormholed content within a styleguide
 - Toggling content back and forth through the wormhole
 - Parlor tricks
+
+## And what about selectors?
+
+Selectors that return more than one result will throw an error. For example, if we have
+
+```html
+...
+<div class="actor jason-spader"></div>
+<div class="actor kurt-russel"></div>
+```
+
+Then this would be fine
+
+```hbs
+{{#ember-wormhole destinationElementSelector=".jason-spader"}}
+ ...
+{{/ember-wormhole}}
+```
+but this would not
+
+```hbs
+{{#ember-wormhole destinationElementSelector=".actor"}}
+ ...
+{{/ember-wormhole}}
+```
 
 ## Development Setup
 

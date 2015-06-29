@@ -7,8 +7,28 @@ var run = Ember.run;
 export default Ember.Component.extend({
   to: computed.alias('destinationElementId'),
   destinationElementId: null,
-  destinationElement: computed('destinationElementId', 'renderInPlace', function() {
-    return this.get('renderInPlace') ? this.element : document.getElementById(this.get('destinationElementId'));
+  destinationElementSelector: computed('destinationElementId', function() {
+    var destinationId = this.get('destinationElementId');
+    return destinationId ? `#${destinationId}` : null;
+  }),
+  destinationElement: computed('destinationElementSelector', 'renderInPlace', function() {
+    if (this.get('renderInPlace')) {
+      return this.element;
+    } else {
+      var sel = this.get('destinationElementSelector');
+      var results =  document.querySelectorAll(sel);
+      if (results.length > 1) {
+        throw new Error(`Selector ${sel} resulted in more than one element being found`);
+      }
+      else {
+        if (results.length === 0) {
+          return null;
+        }
+        else {
+          return results[0];
+        }
+      }
+    }
   }),
   renderInPlace: false,
 
@@ -36,11 +56,11 @@ export default Ember.Component.extend({
   appendToDestination: function() {
     var destinationElement = this.get('destinationElement');
     if (!destinationElement) {
-      var destinationElementId = this.get('destinationElementId');
-      if (destinationElementId) {
-        throw new Error(`ember-wormhole failed to render into '#${this.get('destinationElementId')}' because the element is not in the DOM`);
+      var destinationElementSelector = this.get('destinationElementSelector');
+      if (destinationElementSelector) {
+        throw new Error(`ember-wormhole failed to render into '${this.get('destinationElementSelector')}' because the element is not in the DOM`);
       }
-      throw new Error('ember-wormhole failed to render content because the destinationElementId was set to an undefined or falsy value.');
+      throw new Error('ember-wormhole failed to render content because the destinationElementSelector was set to an undefined or falsy value.');
     }
     this.appendRange(destinationElement, this._firstNode, this._lastNode);
   },

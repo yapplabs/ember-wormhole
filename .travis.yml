@@ -8,6 +8,10 @@ cache:
     - node_modules
 
 before_install:
+  - mkdir travis-phantomjs
+  - wget https://s3.amazonaws.com/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2 -O $PWD/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2
+  - tar -xvf $PWD/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2 -C $PWD/travis-phantomjs
+  - export PATH=$PWD/travis-phantomjs:$PATH
   - "npm config set spin false"
   - "npm install -g npm@^2"
 
@@ -27,6 +31,7 @@ env:
   - EMBER_TRY_SCENARIO="Ember Canary"
 
 matrix:
+  fast_finish: true
   allow_failures:
     - env: EMBER_TRY_SCENARIO="Ember Beta"
     - env: EMBER_TRY_SCENARIO="Ember Canary"
