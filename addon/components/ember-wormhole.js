@@ -3,38 +3,38 @@ import Ember from 'ember';
 const { computed, inject, observer, run } = Ember;
 
 export default Ember.Component.extend({
-  to: computed.alias('destinationName'),
+  to: null,
   wormholeTargetService: inject.service('wormhole-target'),
 
-  destinationName: null,
+  wormholeTargetName: computed.alias('to'),
   renderInPlace: false,
 
-  destination: computed('destinationName', 'renderInPlace', function() {
-    return this.get('renderInPlace') ? this.element : this.get('destinationName');
+  wormholeTarget: computed('wormholeTargetName', 'renderInPlace', function() {
+    return this.get('renderInPlace') ? this.element : this.get('wormholeTargetName');
   }),
 
   didInsertElement() {
-    const destination = this.get('destination');
+    const wormholeTarget = this.get('wormholeTarget');
 
     this._firstNode = this.element.firstChild;
     this._lastNode = this.element.lastChild;
 
-    this.get('wormholeTargetService').appendRange(destination, this._firstNode, this._lastNode);
+    this.get('wormholeTargetService').appendRange(wormholeTarget, this._firstNode, this._lastNode);
   },
 
   willDestroyElement() {
-    const destination = this.get('destination');
+    const wormholeTarget = this.get('wormholeTarget');
 
     run.schedule('render', () => {
-      this.get('wormholeTargetService').removeRange(destination, this._firstNode, this._lastNode);
+      this.get('wormholeTargetService').removeRange(wormholeTarget, this._firstNode, this._lastNode);
     });
   },
 
-  destinationDidChange: observer('destination', function() {
-    const destination = this.get('destination');
+  destinationDidChange: observer('wormholeTarget', function() {
+    const wormholeTarget = this.get('wormholeTarget');
 
     run.schedule('render', () => {
-      this.get('wormholeTargetService').appendRange(destination, this._firstNode, this._lastNode);
+      this.get('wormholeTargetService').appendRange(wormholeTarget, this._firstNode, this._lastNode);
     });
   })
 });
