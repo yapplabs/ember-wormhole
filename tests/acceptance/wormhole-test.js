@@ -196,7 +196,7 @@ test('throws if destination element id falsy', function(assert) {
   andThen(function() {
     assert.throws(
       wormholeToNowhere,
-      /ember-wormhole failed to render content because the destinationElementId/,
+      /ember-wormhole failed to render content because the destination/,
       'throws on missing destination element id'
     );
   });
