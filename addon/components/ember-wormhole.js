@@ -13,12 +13,14 @@ export default Ember.Component.extend({
   renderInPlace: false,
 
   didInsertElement: function() {
+    this.super(...arguments);
     this._firstNode = this.element.firstChild;
     this._lastNode = this.element.lastChild;
     this.appendToDestination();
   },
 
   willDestroyElement: function() {
+    this.super(...arguments);
     var firstNode = this._firstNode;
     var lastNode = this._lastNode;
     run.schedule('render', () => {
