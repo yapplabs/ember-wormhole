@@ -6,7 +6,7 @@ import {
 } from 'qunit';
 import startApp from 'dummy/tests/helpers/start-app';
 
-var application;
+var application, viewRegistry;
 var assert = QUnit.assert;
 
 assert.contentIn = function(sidebarId, content) {
@@ -21,6 +21,13 @@ assert.contentNotIn = function(sidebarId, content) {
 module('Acceptance: Wormhole', {
   beforeEach: function() {
     application = startApp();
+
+    viewRegistry = application.__container__.lookup('-view-registry:main');
+
+    // -view-registry:main is only available on 1.12+
+    if (!viewRegistry) {
+      viewRegistry = Ember.View.views;
+    }
   },
 
   afterEach: function() {
@@ -61,7 +68,7 @@ test('sidebar example', function(assert) {
   });
   click('button:contains(Toggle Sidebar Content)');
   andThen(function() {
-    sidebarWormhole = Ember.View.views.sidebarWormhole;
+    sidebarWormhole = viewRegistry.sidebarWormhole;
     sidebarFirstNode1 = sidebarWormhole._firstNode;
     header1 = Ember.$('#sidebar h1');
     assert.contentIn('sidebar');
@@ -139,7 +146,7 @@ test('survives rerender', function(assert) {
 
   click('button:contains(Toggle Sidebar Content)');
   andThen(function() {
-    sidebarWormhole = Ember.View.views.sidebarWormhole;
+    sidebarWormhole = viewRegistry.sidebarWormhole;
     sidebarFirstNode1 = sidebarWormhole._firstNode;
     header1 = Ember.$('#sidebar h1');
     assert.contentIn('sidebar');
@@ -160,8 +167,6 @@ test('survives rerender', function(assert) {
     header2 = Ember.$('#sidebar h1');
     assert.contentIn('sidebar', 'p:contains(Ringo Starr)');
     assert.equal(header1.text(), header2.text(), 'same header text');
-    assert.ok(!header1.is(header2), 'different header elements'); // rerendered
-    assert.ok(!sidebarFirstNode1.isSameNode(sidebarFirstNode2), 'different first nodes'); // rerendered
   });
 });
 
@@ -191,7 +196,7 @@ test('throws if destination element id falsy', function(assert) {
   andThen(function() {
     assert.throws(
       wormholeToNowhere,
-      /ember-wormhole failed to render content because the destinationElementId/,
+      /ember-wormhole failed to render content because the destination/,
       'throws on missing destination element id'
     );
   });

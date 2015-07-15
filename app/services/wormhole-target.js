@@ -1,0 +1,1 @@
+export { default } from 'ember-wormhole/services/wormhole-target';

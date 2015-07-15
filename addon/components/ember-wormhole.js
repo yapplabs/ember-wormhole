@@ -1,69 +1,40 @@
 import Ember from 'ember';
 
-var computed = Ember.computed;
-var observer = Ember.observer;
-var run = Ember.run;
+const { computed, inject, observer, run } = Ember;
 
 export default Ember.Component.extend({
-  to: computed.alias('destinationElementId'),
-  destinationElementId: null,
-  destinationElement: computed('destinationElementId', 'renderInPlace', function() {
-    return this.get('renderInPlace') ? this.element : document.getElementById(this.get('destinationElementId'));
-  }),
+  to: null,
+  wormholeTargetService: inject.service('wormhole-target'),
+
+  wormholeTargetName: computed.alias('to'),
   renderInPlace: false,
 
-  didInsertElement: function() {
+  wormholeTarget: computed('wormholeTargetName', 'renderInPlace', function() {
+    return this.get('renderInPlace') ? this.element : this.get('wormholeTargetName');
+  }),
+
+  didInsertElement() {
+    const wormholeTarget = this.get('wormholeTarget');
+
     this._firstNode = this.element.firstChild;
     this._lastNode = this.element.lastChild;
-    this.appendToDestination();
+
+    this.get('wormholeTargetService').appendRange(wormholeTarget, this._firstNode, this._lastNode);
   },
 
-  willDestroyElement: function() {
-    var firstNode = this._firstNode;
-    var lastNode = this._lastNode;
+  willDestroyElement() {
+    const wormholeTarget = this.get('wormholeTarget');
+
     run.schedule('render', () => {
-      this.removeRange(firstNode, lastNode);
+      this.get('wormholeTargetService').removeRange(wormholeTarget, this._firstNode, this._lastNode);
     });
   },
 
-  destinationDidChange: observer('destinationElement', function() {
-    var destinationElement = this.get('destinationElement');
-    if (destinationElement !== this._firstNode.parentNode) {
-      run.schedule('render', this, 'appendToDestination');
-    }
-  }),
+  destinationDidChange: observer('wormholeTarget', function() {
+    const wormholeTarget = this.get('wormholeTarget');
 
-  appendToDestination: function() {
-    var destinationElement = this.get('destinationElement');
-    if (!destinationElement) {
-      var destinationElementId = this.get('destinationElementId');
-      if (destinationElementId) {
-        throw new Error(`ember-wormhole failed to render into '#${this.get('destinationElementId')}' because the element is not in the DOM`);
-      }
-      throw new Error('ember-wormhole failed to render content because the destinationElementId was set to an undefined or falsy value.');
-    }
-    this.appendRange(destinationElement, this._firstNode, this._lastNode);
-  },
-
-  appendRange: function(destinationElement, firstNode, lastNode) {
-    while(firstNode) {
-      destinationElement.insertBefore(firstNode, null);
-      firstNode = firstNode !== lastNode ? lastNode.parentNode.firstChild : null;
-    }
-  },
-
-  removeRange: function(firstNode, lastNode) {
-    var node = lastNode;
-    do {
-      var next = node.previousSibling;
-      if (node.parentNode) {
-        node.parentNode.removeChild(node);
-        if (node === firstNode) {
-          break;
-        }
-      }
-      node = next;
-    } while (node);
-  }
-
+    run.schedule('render', () => {
+      this.get('wormholeTargetService').appendRange(wormholeTarget, this._firstNode, this._lastNode);
+    });
+  })
 });
