@@ -35,6 +35,7 @@ export default Ember.Component.extend({
 
   appendToDestination: function() {
     var destinationElement = this.get('destinationElement');
+    var currentActiveElement = document.activeElement;
     if (!destinationElement) {
       var destinationElementId = this.get('destinationElementId');
       if (destinationElementId) {
@@ -42,7 +43,11 @@ export default Ember.Component.extend({
       }
       throw new Error('ember-wormhole failed to render content because the destinationElementId was set to an undefined or falsy value.');
     }
+
     this.appendRange(destinationElement, this._firstNode, this._lastNode);
+    if (document.activeElement !== currentActiveElement) {
+      currentActiveElement.focus();
+    }
   },
 
   appendRange: function(destinationElement, firstNode, lastNode) {
