@@ -196,3 +196,20 @@ test('throws if destination element id falsy', function(assert) {
     );
   });
 });
+
+test('preserves focus', function (assert) {
+  var focused;
+  visit('/');
+  andThen(function() {
+    assert.equal(currentPath(), 'index');
+  });
+  click('button:contains(Toggle Sidebar Content)');
+  andThen(function() {
+    Ember.$('button:contains(Hide Sidebar Content)').focus();
+    focused = document.activeElement;
+  });
+  click('button:contains(Switch Sidebars From Without)');
+  andThen(function() {
+    assert.equal(document.activeElement, focused);
+  });
+});
