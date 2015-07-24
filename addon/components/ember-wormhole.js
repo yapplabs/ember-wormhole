@@ -8,7 +8,13 @@ export default Ember.Component.extend({
   to: computed.alias('destinationElementId'),
   destinationElementId: null,
   destinationElement: computed('destinationElementId', 'renderInPlace', function() {
-    return this.get('renderInPlace') ? this.element : document.getElementById(this.get('destinationElementId'));
+    var destinationElementId;
+    if (this.get('renderInPlace')) {
+      return this.element;
+    } else {
+      destinationElementId = this.get('destinationElementId');
+      return destinationElementId instanceof HTMLElement ? destinationElementId : document.getElementById(destinationElementId);
+    }
   }),
   renderInPlace: false,
 
