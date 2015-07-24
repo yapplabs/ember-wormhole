@@ -1,39 +1,54 @@
 module.exports = {
   scenarios: [
     {
-      name: 'Ember Canary',
+      name: 'default',
+      dependencies: { }
+    },
+    {
+      name: '1.10.1',
       dependencies: {
-        "ember": "components/ember#canary"
+        'ember': '1.10.1',
+        'ember-load-initializers': 'ember-cli/ember-load-initializers#0.0.2'
+      }
+    },
+    {
+      name: '1.11.3',
+      dependencies: {
+        'ember': '1.11.3',
+        'ember-load-initializers': 'ember-cli/ember-load-initializers#0.0.2'
+      }
+    },
+    {
+      name: '1.12.1',
+      dependencies: {
+        'ember': '1.12.1'
+      }
+    },
+    {
+      name: 'ember-release',
+      dependencies: {
+        'ember': 'components/ember#release'
       },
       resolutions: {
-        "ember": "canary"
+        'ember': 'release'
       }
     },
     {
-      name: 'Ember Beta',
+      name: 'ember-beta',
       dependencies: {
-        "ember": "components/ember#beta"
+        'ember': 'components/ember#beta'
       },
       resolutions: {
-        "ember": "beta"
+        'ember': 'beta'
       }
     },
     {
-      name: "Ember 1.12.0",
+      name: 'ember-canary',
       dependencies: {
-        "ember": "1.12.0"
-      }
-    },
-    {
-      name: "Ember 1.11.3",
-      dependencies: {
-        "ember": "1.11.3"
-      }
-    },
-    {
-      name: "Ember 1.10.0",
-      dependencies: {
-        "ember": "1.10.0"
+        'ember': 'components/ember#canary'
+      },
+      resolutions: {
+        'ember': 'canary'
       }
     }
   ]
