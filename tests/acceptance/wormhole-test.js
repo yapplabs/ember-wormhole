@@ -61,7 +61,7 @@ test('sidebar example', function(assert) {
   });
   click('button:contains(Toggle Sidebar Content)');
   andThen(function() {
-    sidebarWormhole = Ember.View.views.sidebarWormhole;
+    sidebarWormhole = Ember.$('#sidebarWormhole').data('ember-wormhole');
     sidebarFirstNode1 = sidebarWormhole._firstNode;
     header1 = Ember.$('#sidebar h1');
     assert.contentIn('sidebar');
@@ -130,7 +130,6 @@ test('sidebar example in place', function(assert) {
 test('survives rerender', function(assert) {
   var sidebarWormhole;
   var header1, header2;
-  var sidebarFirstNode1, sidebarFirstNode2;
 
   visit('/');
   andThen(function() {
@@ -139,8 +138,7 @@ test('survives rerender', function(assert) {
 
   click('button:contains(Toggle Sidebar Content)');
   andThen(function() {
-    sidebarWormhole = Ember.View.views.sidebarWormhole;
-    sidebarFirstNode1 = sidebarWormhole._firstNode;
+    sidebarWormhole = Ember.$('#sidebarWormhole').data('ember-wormhole');
     header1 = Ember.$('#sidebar h1');
     assert.contentIn('sidebar');
   });
@@ -156,12 +154,9 @@ test('survives rerender', function(assert) {
   });
 
   andThen(function() {
-    sidebarFirstNode2 = sidebarWormhole._firstNode;
     header2 = Ember.$('#sidebar h1');
     assert.contentIn('sidebar', 'p:contains(Ringo Starr)');
     assert.equal(header1.text(), header2.text(), 'same header text');
-    assert.ok(!header1.is(header2), 'different header elements'); // rerendered
-    assert.ok(!sidebarFirstNode1.isSameNode(sidebarFirstNode2), 'different first nodes'); // rerendered
   });
 });
 
