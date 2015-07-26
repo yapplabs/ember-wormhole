@@ -8,9 +8,19 @@ export default Ember.Component.extend({
   to: computed.alias('destinationElementId'),
   destinationElementId: null,
   destinationElement: computed('destinationElementId', 'renderInPlace', function() {
-    return this.get('renderInPlace') ? this.element : document.getElementById(this.get('destinationElementId'));
+    if (this.get('renderInPlace')) {
+      return this.element;
+    } else if (this.get('destinationElementId')) {
+      return document.getElementById(this.get('destinationElementId'));
+    } else {
+      this.set('shouldDestroyDestination', true);
+      var element = document.createElement('div');
+      document.body.appendChild(element);
+      return element;
+    }
   }),
   renderInPlace: false,
+  shouldDestroyDestination: false,
 
   didInsertElement: function() {
     this._super(...arguments);
@@ -25,6 +35,12 @@ export default Ember.Component.extend({
     var lastNode = this._lastNode;
     run.schedule('render', () => {
       this.removeRange(firstNode, lastNode);
+      if (this.get('shouldDestroyDestination')) {
+        let destination = this.get('destinationElement');
+        if (destination && destination.parentNode) {
+          destination.parentNode.removeChild(destination);
+        }
+      }
     });
   },
 
