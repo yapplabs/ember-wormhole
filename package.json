@@ -1,6 +1,6 @@
 {
   "name": "ember-wormhole",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Render a child view somewhere else in the DOM.",
   "directories": {
     "doc": "doc",
