@@ -208,3 +208,34 @@ test('preserves focus', function (assert) {
     assert.equal(document.activeElement, focused);
   });
 });
+
+test('favicon example', function(assert) {
+  visit('/');
+  andThen(function () {
+    var favicon = $('link[rel="icon"]');
+    assert.equal(favicon.attr('href'), 'http://emberjs.com/images/favicon.png');
+  });
+
+  fillIn('.favicon', 'http://handlebarsjs.com/images/favicon.png');
+  andThen(function () {
+    var favicon = $('link[rel="icon"]');
+    assert.equal(favicon.attr('href'), 'http://handlebarsjs.com/images/favicon.png');
+  });
+});
+
+test('document-title example', function(assert) {
+  visit('/');
+  andThen(function () {
+    assert.equal(document.title, 'ember-wormhole');
+  });
+
+  click('#toggle-title');
+  andThen(function () {
+    assert.equal(document.title, 'ember-wormhole Testing');
+  });
+
+  click('#toggle-title');
+  andThen(function () {
+    assert.equal(document.title, 'ember-wormhole');
+  });
+});
