@@ -6,6 +6,8 @@ import {
 } from 'qunit';
 import startApp from 'dummy/tests/helpers/start-app';
 
+const { set } = Ember;
+
 var application;
 var assert = QUnit.assert;
 
@@ -193,6 +195,7 @@ test('throws if destination element id falsy', function(assert) {
 });
 
 test('preserves focus', function (assert) {
+  var sidebarWormhole;
   var focused;
   visit('/');
   andThen(function() {
@@ -200,11 +203,18 @@ test('preserves focus', function (assert) {
   });
   click('button:contains(Toggle Sidebar Content)');
   andThen(function() {
+    sidebarWormhole = Ember.$('#sidebarWormhole').data('ember-wormhole');
+    assert.contentIn('sidebar');
+    assert.contentNotIn('othersidebar');
     Ember.$('button:contains(Hide Sidebar Content)').focus();
     focused = document.activeElement;
   });
-  click('button:contains(Switch Sidebars From Without)');
   andThen(function() {
+    set(sidebarWormhole, 'to', 'othersidebar');
+  });
+  andThen(function() {
+    assert.contentNotIn('sidebar');
+    assert.contentIn('othersidebar');
     assert.equal(document.activeElement, focused);
   });
 });
