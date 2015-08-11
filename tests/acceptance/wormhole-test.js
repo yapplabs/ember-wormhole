@@ -162,38 +162,6 @@ test('survives rerender', function(assert) {
   });
 });
 
-test('throws if destination element not in DOM', function(assert) {
-  visit('/');
-  andThen(function() {
-    Ember.$('#sidebar').remove();
-  });
-  var wormholeToMissingSidebar = function() {
-    Ember.$('button:contains(Toggle Sidebar Content)').click();
-  };
-  andThen(function() {
-    assert.throws(
-      wormholeToMissingSidebar,
-      /ember-wormhole failed to render into/,
-      'throws on missing destination element'
-    );
-  });
-});
-
-test('throws if destination element id falsy', function(assert) {
-  visit('/');
-  var wormholeToNowhere = function() {
-    application.__container__.lookup('controller:application').set('sidebarId', null);
-    Ember.$('button:contains(Toggle Sidebar Content)').click();
-  };
-  andThen(function() {
-    assert.throws(
-      wormholeToNowhere,
-      /ember-wormhole failed to render content because the destinationElementId/,
-      'throws on missing destination element id'
-    );
-  });
-});
-
 test('preserves focus', function (assert) {
   var sidebarWormhole;
   var focused;

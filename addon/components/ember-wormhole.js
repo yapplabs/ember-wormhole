@@ -1,16 +1,14 @@
 import Ember from 'ember';
 
-var computed = Ember.computed;
-var observer = Ember.observer;
-var run = Ember.run;
+const { computed, observer, run } = Ember;
 
 export default Ember.Component.extend({
   to: computed.alias('destinationElementId'),
   destinationElementId: null,
-  destinationElement: computed('destinationElementId', 'renderInPlace', function() {
-    return this.get('renderInPlace') ? this.element : document.getElementById(this.get('destinationElementId'));
+  destinationElement: computed('destinationElementId', function() {
+    let id = this.get('destinationElementId');
+    return id ? document.getElementById(id) : this.element;
   }),
-  renderInPlace: false,
 
   didInsertElement: function() {
     this._super(...arguments);
@@ -38,17 +36,11 @@ export default Ember.Component.extend({
   appendToDestination: function() {
     var destinationElement = this.get('destinationElement');
     var currentActiveElement = document.activeElement;
-    if (!destinationElement) {
-      var destinationElementId = this.get('destinationElementId');
-      if (destinationElementId) {
-        throw new Error(`ember-wormhole failed to render into '#${this.get('destinationElementId')}' because the element is not in the DOM`);
+    if (destinationElement) {
+      this.appendRange(destinationElement, this._firstNode, this._lastNode);
+      if (document.activeElement !== currentActiveElement) {
+        currentActiveElement.focus();
       }
-      throw new Error('ember-wormhole failed to render content because the destinationElementId was set to an undefined or falsy value.');
-    }
-
-    this.appendRange(destinationElement, this._firstNode, this._lastNode);
-    if (document.activeElement !== currentActiveElement) {
-      currentActiveElement.focus();
     }
   },
 

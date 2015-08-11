@@ -1,12 +1,17 @@
 import Ember from 'ember';
 
-var set = Ember.set;
+const { get, set, computed } = Ember;
 
 export default Ember.Controller.extend({
   isShowingModal: false,
   isShowingSidebarContent: false,
   sidebarId: 'sidebar',
   isInPlace: false,
+  wormholeDestination: computed('isInPlace', 'sidebarId', function() {
+    let inPlace = get(this, 'isInPlace');
+    let id = get(this, 'sidebarId');
+    return inPlace ? null : id;
+  }),
   isTestingDocumentTitle: false,
   favicon: "http://emberjs.com/images/favicon.png",
   actions: {

@@ -74,15 +74,17 @@ and remove them when the route is exited.
 Yes! Sometimes you feel like a wormhole. Sometimes you don't. Situations 
 sometimes call for the same content to be rendered through the wormhole or in place.
 
-In this example, `renderInPlace` will override `to` and cause the wormhole content to be rendered in place.
+Yes. Omitting the `to` property will cause the wormhole to render in place. (Note, `to` is an alias of `destinationElementId`.)
+
+In this example, the wormhole content will be rendered in place because neither the `to` nor `destinationElementId` property is set.
 
 ```hbs
-{{#ember-wormhole to="destination" renderInPlace="true"}}
+{{#ember-wormhole}}
   Hello world!
 {{/ember-wormhole}}
 ```
 
-This technique is useful for:
+Specifying/omitting a `to` value is useful for:
 
 - Presenting typically-wormholed content within a styleguide
 - Toggling content back and forth through the wormhole
