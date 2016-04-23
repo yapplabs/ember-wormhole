@@ -1,9 +1,9 @@
 /*globals document*/
-function initialize(container, application){
+
+function initialize(container, application) {
   var rootEl = document.querySelector(application.rootElement);
   var modalContainerEl = document.createElement('div');
-  var modalContainerElId = 'modals';
-  modalContainerEl.id = modalContainerElId;
+  modalContainerEl.id = 'modals';
   rootEl.appendChild(modalContainerEl);
 }
 
