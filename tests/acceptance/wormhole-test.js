@@ -1,12 +1,12 @@
-import Ember from 'ember';
+import $ from 'jquery';
+import run from 'ember-runloop';
+import set from 'ember-metal/set';
 import QUnit from 'qunit';
 import {
   module,
   test
 } from 'qunit';
 import startApp from 'dummy/tests/helpers/start-app';
-
-const { set } = Ember;
 
 var application;
 var assert = QUnit.assert;
@@ -21,12 +21,12 @@ assert.contentNotIn = function(sidebarId, content) {
 };
 
 module('Acceptance: Wormhole', {
-  beforeEach: function() {
+  beforeEach() {
     application = startApp();
   },
 
-  afterEach: function() {
-    Ember.run(application, 'destroy');
+  afterEach() {
+    run(application, 'destroy');
   }
 });
 
@@ -37,18 +37,18 @@ test('modal example', function(assert) {
   });
   click('button:contains(Toggle Modal)');
   andThen(function() {
-    assert.equal(Ember.$('#modals .overlay').length, 1, 'overlay is visible');
-    assert.equal(Ember.$('#modals .dialog').length, 1, 'dialog is visible');
+    assert.equal($('#modals .overlay').length, 1, 'overlay is visible');
+    assert.equal($('#modals .dialog').length, 1, 'dialog is visible');
   });
   click('#modals .overlay');
   andThen(function() {
-    assert.equal(Ember.$('#modals .overlay').length, 0, 'overlay is not visible');
-    assert.equal(Ember.$('#modals .dialog').length, 0, 'dialog is not visible');
+    assert.equal($('#modals .overlay').length, 0, 'overlay is not visible');
+    assert.equal($('#modals .dialog').length, 0, 'dialog is not visible');
   });
   fillIn('.username', 'coco');
   click('button:contains(Toggle Modal)');
   andThen(function() {
-    assert.equal(Ember.$('#modals .dialog p:contains(coco)').length, 1, 'up-to-date username is shown in dialog');
+    assert.equal($('#modals .dialog p:contains(coco)').length, 1, 'up-to-date username is shown in dialog');
   });
 });
 
@@ -63,9 +63,9 @@ test('sidebar example', function(assert) {
   });
   click('button:contains(Toggle Sidebar Content)');
   andThen(function() {
-    sidebarWormhole = Ember.$('#sidebarWormhole').data('ember-wormhole');
-    sidebarFirstNode1 = sidebarWormhole._firstNode;
-    header1 = Ember.$('#sidebar h1');
+    sidebarWormhole = $('#sidebarWormhole').data('ember-wormhole');
+    sidebarFirstNode1 = sidebarWormhole._wormholeHeadNode;
+    header1 = $('#sidebar h1');
     assert.contentIn('sidebar');
   });
   fillIn('.first-name', 'Ray');
@@ -75,8 +75,8 @@ test('sidebar example', function(assert) {
   });
   click('#sidebar button:contains(Switch)');
   andThen(function() {
-    sidebarFirstNode2 = sidebarWormhole._firstNode;
-    header2 = Ember.$('#othersidebar h1');
+    sidebarFirstNode2 = sidebarWormhole._wormholeHeadNode;
+    header2 = $('#othersidebar h1');
     assert.equal(header1.text(), header2.text(), 'same header text');
     assert.ok(header1.is(header2), 'same header elements'); // appended elsewhere
     assert.ok(sidebarFirstNode1.isSameNode(sidebarFirstNode2), 'different first nodes'); // appended elsewhere
@@ -140,8 +140,8 @@ test('survives rerender', function(assert) {
 
   click('button:contains(Toggle Sidebar Content)');
   andThen(function() {
-    sidebarWormhole = Ember.$('#sidebarWormhole').data('ember-wormhole');
-    header1 = Ember.$('#sidebar h1');
+    sidebarWormhole = $('#sidebarWormhole').data('ember-wormhole');
+    header1 = $('#sidebar h1');
     assert.contentIn('sidebar');
   });
 
@@ -156,7 +156,7 @@ test('survives rerender', function(assert) {
   });
 
   andThen(function() {
-    header2 = Ember.$('#sidebar h1');
+    header2 = $('#sidebar h1');
     assert.contentIn('sidebar', 'p:contains(Ringo Starr)');
     assert.equal(header1.text(), header2.text(), 'same header text');
   });
@@ -165,10 +165,10 @@ test('survives rerender', function(assert) {
 test('throws if destination element not in DOM', function(assert) {
   visit('/');
   andThen(function() {
-    Ember.$('#sidebar').remove();
+    $('#sidebar').remove();
   });
   var wormholeToMissingSidebar = function() {
-    Ember.$('button:contains(Toggle Sidebar Content)').click();
+    $('button:contains(Toggle Sidebar Content)').click();
   };
   andThen(function() {
     assert.throws(
@@ -183,7 +183,7 @@ test('throws if destination element id falsy', function(assert) {
   visit('/');
   var wormholeToNowhere = function() {
     application.__container__.lookup('controller:application').set('sidebarId', null);
-    Ember.$('button:contains(Toggle Sidebar Content)').click();
+    $('button:contains(Toggle Sidebar Content)').click();
   };
   andThen(function() {
     assert.throws(
@@ -203,10 +203,10 @@ test('preserves focus', function (assert) {
   });
   click('button:contains(Toggle Sidebar Content)');
   andThen(function() {
-    sidebarWormhole = Ember.$('#sidebarWormhole').data('ember-wormhole');
+    sidebarWormhole = $('#sidebarWormhole').data('ember-wormhole');
     assert.contentIn('sidebar');
     assert.contentNotIn('othersidebar');
-    Ember.$('button:contains(Hide Sidebar Content)').focus();
+    $('button:contains(Hide Sidebar Content)').focus();
     focused = document.activeElement;
   });
   andThen(function() {

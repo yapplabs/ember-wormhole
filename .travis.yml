@@ -1,7 +1,7 @@
 ---
 language: node_js
 node_js:
-  - "0.12"
+  - "4.2"
 
 sudo: false
 
@@ -11,9 +11,9 @@ cache:
 
 env:
   - EMBER_TRY_SCENARIO=default
-  - EMBER_TRY_SCENARIO=1.10.1
-  - EMBER_TRY_SCENARIO=1.11.3
-  - EMBER_TRY_SCENARIO=1.12.1
+  - EMBER_TRY_SCENARIO=1.13.13
+  - EMBER_TRY_SCENARIO=2.0.3
+  - EMBER_TRY_SCENARIO=2.4.5
   - EMBER_TRY_SCENARIO=ember-release
   - EMBER_TRY_SCENARIO=ember-beta
   - EMBER_TRY_SCENARIO=ember-canary
@@ -27,7 +27,7 @@ matrix:
 before_install:
   - export PATH=/usr/local/phantomjs-2.0.0/bin:$PATH
   - "npm config set spin false"
-  - "npm install -g npm@^2"
+  - "npm install -g npm@^3"
 
 install:
   - npm install -g bower

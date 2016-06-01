@@ -1,43 +1,90 @@
 import Ember from 'ember';
+import layout from '../templates/components/ember-wormhole';
+import {
+  getActiveElement,
+  findElementById
+} from '../utils/dom';
 
-var computed = Ember.computed;
-var observer = Ember.observer;
-var run = Ember.run;
+const { Component, computed, observer, run } = Ember;
 
-export default Ember.Component.extend({
+export default Component.extend({
+  layout,
+
+  /*
+   * Attrs
+   */
   to: computed.alias('destinationElementId'),
   destinationElementId: null,
   destinationElement: computed('destinationElementId', 'renderInPlace', function() {
-    return this.get('renderInPlace') ? this.element : document.getElementById(this.get('destinationElementId'));
+    let renderInPlace = this.get('renderInPlace');
+    if (renderInPlace) {
+      return this._element;
+    }
+    let id = this.get('destinationElementId');
+    if (!id) {
+      return null;
+    }
+    return findElementById(this._dom.document, id);
   }),
   renderInPlace: false,
 
-  didInsertElement: function() {
+  /*
+   * Lifecycle
+   */
+  init() {
     this._super(...arguments);
-    this._firstNode = this.element.firstChild;
-    this._lastNode = this.element.lastChild;
-    this.appendToDestination();
+
+    // Private Ember API usage. Get the dom implementation used by the current
+    // renderer, be it native browser DOM or Fastboot SimpleDOM
+    this._dom = this.renderer._dom;
+
+    // Create text nodes used for the head, tail
+    this._wormholeHeadNode = this._dom.document.createTextNode('');
+    this._wormholeTailNode = this._dom.document.createTextNode('');
+
+    // A prop to help in the mocking of didInsertElement timing for Fastboot
+    this._didInsert = false;
+  },
+
+  /*
+   * didInsertElement does not fire in Fastboot. Here we use willRender and
+   * a _didInsert property to approximate the timing. Importantly we want
+   * to run appendToDestination after the child nodes have rendered.
+   */
+  willRender() {
+    this._super(...arguments);
+    if (!this._didInsert) {
+      this._didInsert = true;
+      run.schedule('afterRender', () => {
+        if (this.isDestroyed) { return; }
+        this._element = this._wormholeHeadNode.parentNode;
+        if (!this._element) {
+          throw new Error('The head node of a wormhole must be attached to the DOM');
+        }
+        this._appendToDestination();
+      });
+    }
   },
 
   willDestroyElement: function() {
+    // not called in fastboot
     this._super(...arguments);
-    var firstNode = this._firstNode;
-    var lastNode = this._lastNode;
+    this._didInsert = false;
+    let { _wormholeHeadNode, _wormholeTailNode } = this;
     run.schedule('render', () => {
-      this.removeRange(firstNode, lastNode);
+      this._removeRange(_wormholeHeadNode, _wormholeTailNode);
     });
   },
 
-  destinationDidChange: observer('destinationElement', function() {
+  _destinationDidChange: observer('destinationElement', function() {
     var destinationElement = this.get('destinationElement');
-    if (destinationElement !== this._firstNode.parentNode) {
-      run.schedule('render', this, 'appendToDestination');
+    if (destinationElement !== this._wormholeHeadNode.parentNode) {
+      run.schedule('render', this, '_appendToDestination');
     }
   }),
 
-  appendToDestination: function() {
+  _appendToDestination() {
     var destinationElement = this.get('destinationElement');
-    var currentActiveElement = document.activeElement;
     if (!destinationElement) {
       var destinationElementId = this.get('destinationElementId');
       if (destinationElementId) {
@@ -46,20 +93,21 @@ export default Ember.Component.extend({
       throw new Error('ember-wormhole failed to render content because the destinationElementId was set to an undefined or falsy value.');
     }
 
-    this.appendRange(destinationElement, this._firstNode, this._lastNode);
-    if (document.activeElement !== currentActiveElement) {
+    var currentActiveElement = getActiveElement();
+    this._appendRange(destinationElement, this._wormholeHeadNode, this._wormholeTailNode);
+    if (currentActiveElement && getActiveElement() !== currentActiveElement) {
       currentActiveElement.focus();
     }
   },
 
-  appendRange: function(destinationElement, firstNode, lastNode) {
+  _appendRange(destinationElement, firstNode, lastNode) {
     while(firstNode) {
       destinationElement.insertBefore(firstNode, null);
       firstNode = firstNode !== lastNode ? lastNode.parentNode.firstChild : null;
     }
   },
 
-  removeRange: function(firstNode, lastNode) {
+  _removeRange(firstNode, lastNode) {
     var node = lastNode;
     do {
       var next = node.previousSibling;

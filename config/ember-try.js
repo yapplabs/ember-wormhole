@@ -5,23 +5,21 @@ module.exports = {
       dependencies: { }
     },
     {
-      name: '1.10.1',
+      name: '1.13.13',
       dependencies: {
-        'ember': '1.10.1',
-        'ember-load-initializers': 'ember-cli/ember-load-initializers#0.0.2'
+        'ember': '1.13.13'
       }
     },
     {
-      name: '1.11.3',
+      name: '2.0.3',
       dependencies: {
-        'ember': '1.11.3',
-        'ember-load-initializers': 'ember-cli/ember-load-initializers#0.0.2'
+        'ember': '2.0.3'
       }
     },
     {
-      name: '1.12.1',
+      name: '2.4.5',
       dependencies: {
-        'ember': '1.12.1'
+        'ember': '2.4.5'
       }
     },
     {
