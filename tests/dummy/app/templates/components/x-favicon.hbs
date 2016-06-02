@@ -1,1 +1,7 @@
-<link rel="icon" {{bind-attr href=href}} />
+{{#if needsBindAttr}}
+  {{! Ember version 1.10 does not support direct bound attributes and
+      must use bind-attr. This causes a deprecation warning in Ember 1.13+ }}
+  <link rel="icon" {{bind-attr href=href}} />
+{{else}}
+  <link rel="icon" href={{href}} />
+{{/if}}
