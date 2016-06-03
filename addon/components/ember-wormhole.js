@@ -11,6 +11,7 @@ export default Ember.Component.extend({
     return this.get('renderInPlace') ? this.element : document.getElementById(this.get('destinationElementId'));
   }),
   renderInPlace: false,
+  replaceContent: false,
 
   didInsertElement: function() {
     this._super(...arguments);
@@ -46,6 +47,10 @@ export default Ember.Component.extend({
       throw new Error('ember-wormhole failed to render content because the destinationElementId was set to an undefined or falsy value.');
     }
 
+    if (this.get('replaceContent')) {
+      this.removeRange(destinationElement.firstChild, destinationElement.lastChild);
+    }
+
     this.appendRange(destinationElement, this._firstNode, this._lastNode);
     if (document.activeElement !== currentActiveElement) {
       currentActiveElement.focus();
@@ -61,7 +66,7 @@ export default Ember.Component.extend({
 
   removeRange: function(firstNode, lastNode) {
     var node = lastNode;
-    do {
+    while (node) {
       var next = node.previousSibling;
       if (node.parentNode) {
         node.parentNode.removeChild(node);
@@ -70,7 +75,7 @@ export default Ember.Component.extend({
         }
       }
       node = next;
-    } while (node);
+    }
   }
 
 });

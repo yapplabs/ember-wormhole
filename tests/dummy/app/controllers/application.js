@@ -8,6 +8,7 @@ export default Ember.Controller.extend({
   sidebarId: 'sidebar',
   isInPlace: false,
   isTestingDocumentTitle: false,
+  replacesContent: false,
   favicon: "http://emberjs.com/images/favicon.png",
   actions: {
     toggleModal() {
@@ -25,6 +26,9 @@ export default Ember.Controller.extend({
     },
     toggleTitle() {
       this.toggleProperty('isTestingDocumentTitle');
+    },
+    toggleReplace() {
+      this.toggleProperty('replacesContent');
     }
   }
 });
