@@ -97,6 +97,31 @@ test('sidebar example', function(assert) {
 
 test('sidebar example in place', function(assert) {
   visit('/');
+  andThen(function() {
+    assert.contentNotIn('sidebar');
+    assert.contentIn('sidebar', 'h2');
+    assert.contentNotIn('othersidebar');
+    assert.contentNotIn('example-sidebar');
+  });
+  click('button:contains(Toggle Replacing Content)');
+  click('button:contains(Toggle Sidebar Content)');
+  andThen(function() {
+    assert.contentIn('sidebar');
+    assert.contentNotIn('sidebar', 'h2');
+    assert.contentNotIn('othersidebar');
+    assert.contentNotIn('example-sidebar');
+  });
+  click('button:contains(Toggle Sidebar Content)');
+  andThen(function() {
+    assert.contentNotIn('sidebar');
+    assert.contentNotIn('sidebar', 'h2');
+    assert.contentNotIn('othersidebar');
+    assert.contentNotIn('example-sidebar');
+  });
+});
+
+test('sidebar example replacing content', function(assert) {
+  visit('/');
   click('button:contains(Toggle Sidebar Content)');
   andThen(function() {
     assert.contentIn('sidebar');

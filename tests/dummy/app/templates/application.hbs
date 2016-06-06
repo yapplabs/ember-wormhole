@@ -9,7 +9,9 @@
 
 {{outlet}}
 
-<aside id="sidebar" class="sidebar"></aside>
+<aside id="sidebar" class="sidebar">
+  <h2>Sidebar</h2>
+</aside>
 <aside id="othersidebar" class="sidebar"></aside>
 
 <p class='example'>
@@ -69,6 +71,7 @@
     <button {{action 'toggleSidebarContent'}}>Toggle Sidebar Content</button>
     <button {{action 'switchSidebars'}}>Switch Sidebars From Without</button>
     <button {{action 'toggleInPlace'}}>Toggle In Place</button>
+    <button {{action 'toggleReplace'}}>Toggle Replacing Content</button>
     <label>
       First Name: {{input value=user.firstName class="first-name"}}
     </label>
@@ -76,7 +79,7 @@
       Last Name: {{input value=user.lastName class="last-name"}}
     </label>
     {{#if isShowingSidebarContent}}
-      {{#ember-wormhole to=sidebarId id='sidebarWormhole' renderInPlace=isInPlace}}
+      {{#ember-wormhole to=sidebarId id='sidebarWormhole' renderInPlace=isInPlace replaceContent=replacesContent}}
         <h1>Epic sidebar action</h1>
         <p>Here we have some content which is bound from the context
           where the wormhole component was used: "{{user.fullName}}"</p>
