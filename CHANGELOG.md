@@ -1,5 +1,22 @@
 # Change Log
 
+## [0.4.0](https://github.com/yapplabs/ember-wormhole/tree/0.4.0) (2016-06-08)
+[Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.3.6...0.4.0)
+
+**Closed issues:**
+
+- Call an user-provided action on didInsertElement/willDestroyElement [\#49](https://github.com/yapplabs/ember-wormhole/issues/49)
+- Ability to replace content instead of appending [\#48](https://github.com/yapplabs/ember-wormhole/issues/48)
+- fastboot compatibility [\#47](https://github.com/yapplabs/ember-wormhole/issues/47)
+- Render a child view after target instead of inside it [\#45](https://github.com/yapplabs/ember-wormhole/issues/45)
+
+**Merged pull requests:**
+
+- Fix initializer arity deprecation [\#56](https://github.com/yapplabs/ember-wormhole/pull/56) ([bantic](https://github.com/bantic))
+- Remove `needsBindAttr` from x-favicon component in tests [\#55](https://github.com/yapplabs/ember-wormhole/pull/55) ([bantic](https://github.com/bantic))
+- Refactor to public APIs for head/tail [\#54](https://github.com/yapplabs/ember-wormhole/pull/54) ([mixonic](https://github.com/mixonic))
+- Update ember-cli 1.13.7 to 2.5.1 [\#53](https://github.com/yapplabs/ember-wormhole/pull/53) ([mixonic](https://github.com/mixonic))
+
 ## [0.3.6](https://github.com/yapplabs/ember-wormhole/tree/0.3.6) (2016-06-02)
 [Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.3.5...0.3.6)
 
