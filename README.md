@@ -1,8 +1,10 @@
 # Ember Wormhole [![Build Status](https://travis-ci.org/yapplabs/ember-wormhole.svg?branch=master)](https://travis-ci.org/yapplabs/ember-wormhole) [![Ember Observer Score](http://emberobserver.com/badges/ember-wormhole.svg)](http://emberobserver.com/addons/ember-wormhole)
 
-This ember-cli addon provides a component that allows for rendering a block 
-to a DOM element somewhere else on the page. The component retains typical Ember 
-context in terms of bound data and action handling.
+This ember-cli addon provides a component that allows for rendering a block
+to a DOM element somewhere else on the page. The component retains typical Ember
+context in terms of bound data and action handling. Ember Wormhole is
+compatible with [Ember FastBoot](http://www.ember-fastboot.com/) as of version
+0.4.0, so long as the destination element is part of Ember's own templates.
 
 ## Live Demo
 
@@ -15,12 +17,12 @@ a component but needs to render as a top-level DOM element, such as a confirmati
 
 ## And How?
 
-This component tracks its element's child nodes. When inserted into the DOM, it appends 
+This component tracks its element's child nodes. When inserted into the DOM, it appends
 its child nodes to a destination element elsewhere. When removed from the DOM, it
-removes its child nodes, so as not to orphan them on the other side of the wormhole. 
+removes its child nodes, so as not to orphan them on the other side of the wormhole.
 
-Nothing else changes -- data binding  and action bubbling still flow according to 
-the Ember component hierarchy. That includes usages of `yield`, so blocks provided 
+Nothing else changes -- data binding  and action bubbling still flow according to
+the Ember component hierarchy. That includes usages of `yield`, so blocks provided
 to `ember-wormhole` simply appear in another part of the DOM.
 
 ## Show Me Some Code!
@@ -71,7 +73,7 @@ and remove them when the route is exited.
 
 ## Can I Render In Place (i.e. Unwormhole)?
 
-Yes! Sometimes you feel like a wormhole. Sometimes you don't. Situations 
+Yes! Sometimes you feel like a wormhole. Sometimes you don't. Situations
 sometimes call for the same content to be rendered through the wormhole or in place.
 
 In this example, `renderInPlace` will override `to` and cause the wormhole content to be rendered in place.
@@ -87,6 +89,19 @@ This technique is useful for:
 - Presenting typically-wormholed content within a styleguide
 - Toggling content back and forth through the wormhole
 - Parlor tricks
+
+## What if if my element has no id?
+
+You can provide an element directly to the wormhole. For example:
+
+```hbs
+{{#ember-wormhole destinationElement=someElement}}
+  Hello world!
+{{/ember-wormhole}}
+```
+
+This usage may be appropriate when using wormhole with dynamic targets,
+such as rendering into all elements matching a selector.
 
 ## Development Setup
 
