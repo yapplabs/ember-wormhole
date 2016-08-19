@@ -16,7 +16,7 @@ export default Wormhole.extend({
     return document.getElementsByTagName('title')[0];
   }),
 
-  willClearRender: function () {
+  willDestroyElement: function () {
     titles.removeObject(this);
     this._super.apply(this, arguments);
   }
