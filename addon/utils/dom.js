@@ -22,6 +22,10 @@ function childNodesOfElement(element) {
 }
 
 export function findElementById(doc, id) {
+  if (doc.getElementById) {
+    return doc.getElementById(id);
+  }
+
   let nodes = childNodesOfElement(doc);
   let node;
 
