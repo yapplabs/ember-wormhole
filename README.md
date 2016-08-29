@@ -103,6 +103,10 @@ You can provide an element directly to the wormhole. For example:
 This usage may be appropriate when using wormhole with dynamic targets,
 such as rendering into all elements matching a selector.
 
+## What Version of Ember is This Compatible With?
+
+This library is compatible with and tested against Ember 1.13 and higher.
+
 ## Development Setup
 
 ### Installation
