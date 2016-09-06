@@ -2,7 +2,8 @@ import Ember from 'ember';
 import layout from '../templates/components/ember-wormhole';
 import {
   getActiveElement,
-  findElementById
+  findElementById,
+  getDOM
 } from '../utils/dom';
 
 const { Component, computed, observer, run } = Ember;
@@ -34,9 +35,7 @@ export default Component.extend({
   init() {
     this._super(...arguments);
 
-    // Private Ember API usage. Get the dom implementation used by the current
-    // renderer, be it native browser DOM or Fastboot SimpleDOM
-    this._dom = this.renderer._dom;
+    this._dom = getDOM(this);
 
     // Create text nodes used for the head, tail
     this._wormholeHeadNode = this._dom.document.createTextNode('');
