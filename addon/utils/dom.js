@@ -1,6 +1,6 @@
 /*
  * Implement some helpers methods for interacting with the DOM,
- * be it Fastboot's SimpleDOM or a browser's version.
+ * be it Fastboot's SimpleDOM or the browser's version.
  */
 
 export function getActiveElement() {
@@ -40,3 +40,15 @@ export function findElementById(doc, id) {
   }
 }
 
+// Private Ember API usage. Get the dom implementation used by the current
+// renderer, be it native browser DOM or Fastboot SimpleDOM
+export function getDOM(context) {
+  let { renderer } = context;
+  if (renderer._dom) { // pre glimmer2
+    return renderer._dom;
+  } else if (renderer._env && renderer._env.getDOM) { // glimmer2
+    return renderer._env.getDOM();
+  } else {
+    throw new Error('ember-wormhole could not get DOM');
+  }
+}
