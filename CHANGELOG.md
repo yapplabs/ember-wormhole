@@ -1,5 +1,21 @@
 # Change Log
 
+## [0.4.1](https://github.com/yapplabs/ember-wormhole/tree/0.4.1) (2016-09-12)
+[Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.4.0...0.4.1)
+
+**Closed issues:**
+
+- \[Glimmer\] Doesn't work in canary since glimmer was enabled [\#64](https://github.com/yapplabs/ember-wormhole/issues/64)
+- Explicitly define compatibility with Ember 1.13+ [\#62](https://github.com/yapplabs/ember-wormhole/issues/62)
+- Allow users to handle "failed to render into" errors [\#58](https://github.com/yapplabs/ember-wormhole/issues/58)
+
+**Merged pull requests:**
+
+- Use `getDOM` util to get dom reference in glimmer2 [\#65](https://github.com/yapplabs/ember-wormhole/pull/65) ([bantic](https://github.com/bantic))
+- \[DOC\] Add Ember version compatibility to README [\#63](https://github.com/yapplabs/ember-wormhole/pull/63) ([lukemelia](https://github.com/lukemelia))
+- Use native doc.getElementById when available [\#61](https://github.com/yapplabs/ember-wormhole/pull/61) ([bantic](https://github.com/bantic))
+- Test ember-alpha in CI. [\#60](https://github.com/yapplabs/ember-wormhole/pull/60) ([rwjblue](https://github.com/rwjblue))
+
 ## [0.4.0](https://github.com/yapplabs/ember-wormhole/tree/0.4.0) (2016-06-08)
 [Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.3.6...0.4.0)
 
