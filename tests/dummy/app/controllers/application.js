@@ -9,6 +9,7 @@ export default Ember.Controller.extend({
   isInPlace: false,
   isTestingDocumentTitle: false,
   favicon: "http://emberjs.com/images/favicon.png",
+  isShowingOverlay: true,
   actions: {
     toggleModal() {
       this.toggleProperty('isShowingModal');
@@ -25,6 +26,9 @@ export default Ember.Controller.extend({
     },
     toggleTitle() {
       this.toggleProperty('isTestingDocumentTitle');
+    },
+    toggleOverlay() {
+      this.toggleProperty('isShowingOverlay');
     }
   }
 });

@@ -249,3 +249,21 @@ test('document-title example', function(assert) {
     assert.equal(document.title, 'ember-wormhole');
   });
 });
+
+// tests for dynamic content updates inside wormhole, which is failing with Glimmer2, see https://github.com/yapplabs/ember-wormhole/issues/66
+test('toggle modal overlay', function(assert) {
+  visit('/');
+  andThen(function() {
+    assert.equal(currentPath(), 'index');
+  });
+  click('button:contains(Toggle Modal)');
+  andThen(function() {
+    assert.equal($('#modals .overlay').length, 1, 'overlay is visible');
+    assert.equal($('#modals .dialog').length, 1, 'dialog is visible');
+  });
+  click('button:contains(Toggle Overlay)');
+  andThen(function() {
+    assert.equal($('#modals .overlay').length, 0, 'overlay is not visible');
+    assert.equal($('#modals .dialog').length, 1, 'dialog is still visible');
+  });
+});
