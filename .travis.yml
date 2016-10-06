@@ -30,11 +30,11 @@ before_install:
   - export PATH=/usr/local/phantomjs-2.0.0/bin:$PATH
   - "npm config set spin false"
   - "npm install -g npm@^3"
+  - "npm install -g bower"
 
 install:
-  - npm install -g bower
   - npm install
   - bower install
 
 script:
-  - ember try $EMBER_TRY_SCENARIO test
+  - ember try:one $EMBER_TRY_SCENARIO test --skip-cleanup
