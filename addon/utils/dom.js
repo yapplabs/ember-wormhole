@@ -3,6 +3,9 @@
  * be it Fastboot's SimpleDOM or the browser's version.
  */
 
+import Ember from 'ember';
+let getOwner = Ember.getOwner;
+
 export function getActiveElement() {
   if (typeof document === 'undefined') {
     return null;
@@ -43,11 +46,14 @@ export function findElementById(doc, id) {
 // Private Ember API usage. Get the dom implementation used by the current
 // renderer, be it native browser DOM or Fastboot SimpleDOM
 export function getDOM(context) {
-  let { renderer } = context;
+  let  container = getOwner ? getOwner(context) : context.container;
+  let renderer = container.lookup('renderer:-dom');
+  var domForAppWithGlimmer2 = container.lookup('service:-document');
+
   if (renderer._dom) { // pre glimmer2
     return renderer._dom;
-  } else if (renderer._env && renderer._env.getDOM) { // glimmer2
-    return renderer._env.getDOM();
+  } else if (domForAppWithGlimmer2) { // glimmer2
+    return domForAppWithGlimmer2;
   } else {
     throw new Error('ember-wormhole could not get DOM');
   }
