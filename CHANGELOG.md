@@ -1,5 +1,14 @@
 # Change Log
 
+## [0.5.0](https://github.com/yapplabs/ember-wormhole/tree/0.5.0) (2016-10-18)
+[Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.4.1...0.5.0)
+
+**Merged pull requests:**
+
+- \[Glimmer2\] Use the document service for glimmer [\#73](https://github.com/yapplabs/ember-wormhole/pull/73) ([chadhietala](https://github.com/chadhietala))
+- Update ember-cli to 2.8.0 and associated dependencies and files. [\#72](https://github.com/yapplabs/ember-wormhole/pull/72) ([runspired](https://github.com/runspired))
+- Test for dynamic content in Glimmer2 [\#68](https://github.com/yapplabs/ember-wormhole/pull/68) ([simonihmig](https://github.com/simonihmig))
+
 ## [0.4.1](https://github.com/yapplabs/ember-wormhole/tree/0.4.1) (2016-09-12)
 [Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.4.0...0.4.1)
 
