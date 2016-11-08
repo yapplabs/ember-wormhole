@@ -23,6 +23,12 @@ module.exports = {
       }
     },
     {
+      name: '2.8',
+      dependencies: {
+        'ember': '~2.8.0'
+      }
+    },
+    {
       name: 'ember-release',
       dependencies: {
         'ember': 'components/ember#release'
