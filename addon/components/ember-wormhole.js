@@ -25,7 +25,7 @@ export default Component.extend({
     if (!id) {
       return null;
     }
-    return findElementById(this._dom.document, id);
+    return findElementById(this._dom, id);
   }),
   renderInPlace: false,
 
@@ -38,8 +38,8 @@ export default Component.extend({
     this._dom = getDOM(this);
 
     // Create text nodes used for the head, tail
-    this._wormholeHeadNode = this._dom.document.createTextNode('');
-    this._wormholeTailNode = this._dom.document.createTextNode('');
+    this._wormholeHeadNode = this._dom.createTextNode('');
+    this._wormholeTailNode = this._dom.createTextNode('');
 
     // A prop to help in the mocking of didInsertElement timing for Fastboot
     this._didInsert = false;
