@@ -10,6 +10,8 @@ compatible with [Ember FastBoot](http://www.ember-fastboot.com/) as of version
 
 View a live demo here: [http://yapplabs.github.io/ember-wormhole/](http://yapplabs.github.io/ember-wormhole/)
 
+The source code for the demo is available here: [https://github.com/yapplabs/ember-wormhole/tree/master/tests/dummy/app](https://github.com/yapplabs/ember-wormhole/tree/master/tests/dummy/app)
+
 ## But Why?
 
 This library is particularly useful for cases where you have UI that is the logical child of
