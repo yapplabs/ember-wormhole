@@ -111,7 +111,13 @@ This library is compatible with and tested against Ember 1.13 and higher.
 
 ## Development Setup
 
-### Installation
+### Simple Installation
+To add the ember-wormhole add-on to an existing project, enter this command from the root of your EmberJS project:
+
+* `ember install ember-wormhole`
+
+### Setting Up The Demo
+If you'd like to set up a new EmberJS application with the ember-wormhole sample application configured, follow these steps:
 
 * `git clone` this repository
 * `npm install`
