@@ -109,6 +109,31 @@ such as rendering into all elements matching a selector.
 
 This library is compatible with and tested against Ember 1.13 and higher.
 
+### Important Note about using this library with Ember 2.10
+
+With latest ember-wormhole and ember@2.10, you need to have a stable root element inside the wormhole block. This is something that the Ember Core team will continue to iterate and work on, but for now the work around is fairly straightforward.
+
+Change:
+
+```hbs
+{{#ember-wormhole to="worm"}}
+  {{#if foo}}
+
+  {{/if}}
+  <p>Other content, whatever</p>
+{{/ember-wormhole}}
+To:
+
+{{#ember-wormhole to="worm"}}
+  <div>
+    {{#if foo}}
+
+    {{/if}}
+    <p>Other content, whatever</p>
+  </div>
+{{/ember-wormhole}}
+```
+
 ## Development Setup
 
 ### Simple Installation
