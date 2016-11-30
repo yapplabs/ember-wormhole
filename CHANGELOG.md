@@ -1,7 +1,41 @@
 # Change Log
 
+## [0.5.1](https://github.com/yapplabs/ember-wormhole/tree/0.5.1) (2016-11-10)
+[Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.5.0...0.5.1)
+
+_Note: This release is the first that is compatible with Ember 2.10 (Glimmer 2) with a caveat:_
+
+With latest ember-wormhole and ember@2.10, you need to have a stable root element inside the wormhole block. This is something that the Ember Core team will continue to iterate and work on, but for now the work around is fairly straightforward.
+
+Change:
+
+```hbs
+{{#ember-wormhole to="worm"}}
+  {{#if foo}}
+
+  {{/if}}
+  <p>Other content, whatever</p>
+{{/ember-wormhole}}
+To:
+
+{{#ember-wormhole to="worm"}}
+  <div>
+    {{#if foo}}
+
+    {{/if}}
+    <p>Other content, whatever</p>
+  </div>
+{{/ember-wormhole}}
+```
+
+**Merged pull requests:**
+
+- Fix some issues with Glimmer2 usage. [\#75](https://github.com/yapplabs/ember-wormhole/pull/75) ([rwjblue](https://github.com/rwjblue))
+
 ## [0.5.0](https://github.com/yapplabs/ember-wormhole/tree/0.5.0) (2016-10-18)
 [Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.4.1...0.5.0)
+
+Note: This release should be avoided due to a bug. Use 0.5.1 instead.
 
 **Merged pull requests:**
 
