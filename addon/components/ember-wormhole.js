@@ -87,15 +87,16 @@ export default Component.extend({
     if (!destinationElement) {
       var destinationElementId = this.get('destinationElementId');
       if (destinationElementId) {
-        throw new Error(`ember-wormhole failed to render into '#${this.get('destinationElementId')}' because the element is not in the DOM`);
+        throw new Error(`ember-wormhole failed to render into '#${destinationElementId}' because the element is not in the DOM`);
       }
       throw new Error('ember-wormhole failed to render content because the destinationElementId was set to an undefined or falsy value.');
     }
 
-    var currentActiveElement = getActiveElement();
+    let startingActiveElement = getActiveElement();
     this._appendRange(destinationElement, this._wormholeHeadNode, this._wormholeTailNode);
-    if (currentActiveElement && getActiveElement() !== currentActiveElement) {
-      currentActiveElement.focus();
+    let resultingActiveElement = getActiveElement();
+    if (startingActiveElement && resultingActiveElement !== startingActiveElement) {
+      startingActiveElement.focus();
     }
   },
 
