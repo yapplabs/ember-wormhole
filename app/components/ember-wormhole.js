@@ -1,1 +1,3 @@
-export { default } from 'ember-wormhole/components/ember-wormhole';
+import EmberWormhole from 'ember-wormhole/components/ember-wormhole';
+
+export default EmberWormhole;
