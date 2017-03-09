@@ -21,11 +21,16 @@ export default Component.extend({
     if (renderInPlace) {
       return this._element;
     }
-    let id = this.get('destinationElementId');
-    if (!id) {
+    let target = this.get('destinationElementId');
+    if (!target) {
       return null;
     }
-    return findElementById(this._dom, id);
+
+    if(typeof target === 'object') {
+      return target;
+    } else {
+      return findElementById(this._dom, target);
+    }
   }),
   renderInPlace: false,
 
