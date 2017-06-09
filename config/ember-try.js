@@ -24,6 +24,18 @@ module.exports = {
       }
     },
     {
+      name: '2.6',
+      dependencies: {
+        'ember': '~2.6.0'
+      }
+    },
+    {
+      name: '2.7',
+      dependencies: {
+        'ember': '~2.7.0'
+      }
+    },
+    {
       name: 'ember-lts-2.8',
       bower: {
         dependencies: {
@@ -37,6 +49,18 @@ module.exports = {
         devDependencies: {
           'ember-source': null
         }
+      }
+    },
+    {
+      name: '2.12',
+      dependencies: {
+        'ember': '~2.12.0'
+      }
+    },
+    {
+      name: '2.12',
+      dependencies: {
+        'ember': '~2.12.0'
       }
     },
     {
