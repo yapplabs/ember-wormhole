@@ -81,7 +81,7 @@ sometimes call for the same content to be rendered through the wormhole or in pl
 In this example, `renderInPlace` will override `to` and cause the wormhole content to be rendered in place.
 
 ```hbs
-{{#ember-wormhole to="destination" renderInPlace="true"}}
+{{#ember-wormhole to="destination" renderInPlace=true}}
   Hello world!
 {{/ember-wormhole}}
 ```
