@@ -46,12 +46,15 @@ export function findElementById(doc, id) {
 // Private Ember API usage. Get the dom implementation used by the current
 // renderer, be it native browser DOM or Fastboot SimpleDOM
 export function getDOM(context) {
-  let container = getOwner ? getOwner(context) : context.container;
-  let documentService = container.lookup('service:-document');
+  let { renderer } = context;
+  if (!renderer._dom) { // pre glimmer2
+    let container = getOwner ? getOwner(context) : context.container;
+    let documentService = container.lookup('service:-document');
 
-  if (documentService) { return documentService; }
+    if (documentService) { return documentService; }
 
-  let renderer = container.lookup('renderer:-dom');
+    renderer = container.lookup('renderer:-dom');
+  }
 
   if (renderer._dom && renderer._dom.document) { // pre Ember 2.6
     return renderer._dom.document;
