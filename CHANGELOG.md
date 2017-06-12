@@ -1,32 +1,20 @@
 # Change Log
 
+## [v0.5.2](https://github.com/yapplabs/ember-wormhole/tree/v0.5.2) (2017-06-11)
+[Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.5.1...v0.5.2)
+
+**Merged pull requests:**
+
+- Fix getDOM for Ember 2.6/2.7 in integration tests [\#95](https://github.com/yapplabs/ember-wormhole/pull/95) ([simonihmig](https://github.com/simonihmig))
+- Upgrade to Ember-cli 2.13 / Babel6 / yarn [\#94](https://github.com/yapplabs/ember-wormhole/pull/94) ([simonihmig](https://github.com/simonihmig))
+- Update code sample to use boolean instead of string representation of a boolean [\#90](https://github.com/yapplabs/ember-wormhole/pull/90) ([andrewhavens](https://github.com/andrewhavens))
+- some cleanup and clarifying [\#85](https://github.com/yapplabs/ember-wormhole/pull/85) ([raycohen](https://github.com/raycohen))
+- Add note about Ember 2.10 [\#83](https://github.com/yapplabs/ember-wormhole/pull/83) ([lukemelia](https://github.com/lukemelia))
+- Update README.md [\#80](https://github.com/yapplabs/ember-wormhole/pull/80) ([graham-sportsmgmt](https://github.com/graham-sportsmgmt))
+- Update README.md [\#79](https://github.com/yapplabs/ember-wormhole/pull/79) ([graham-sportsmgmt](https://github.com/graham-sportsmgmt))
+
 ## [0.5.1](https://github.com/yapplabs/ember-wormhole/tree/0.5.1) (2016-11-10)
 [Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.5.0...0.5.1)
-
-_Note: This release is the first that is compatible with Ember 2.10 (Glimmer 2) with a caveat:_
-
-With latest ember-wormhole and ember@2.10, you need to have a stable root element inside the wormhole block. This is something that the Ember Core team will continue to iterate and work on, but for now the work around is fairly straightforward.
-
-Change:
-
-```hbs
-{{#ember-wormhole to="worm"}}
-  {{#if foo}}
-
-  {{/if}}
-  <p>Other content, whatever</p>
-{{/ember-wormhole}}
-To:
-
-{{#ember-wormhole to="worm"}}
-  <div>
-    {{#if foo}}
-
-    {{/if}}
-    <p>Other content, whatever</p>
-  </div>
-{{/ember-wormhole}}
-```
 
 **Merged pull requests:**
 
@@ -34,8 +22,6 @@ To:
 
 ## [0.5.0](https://github.com/yapplabs/ember-wormhole/tree/0.5.0) (2016-10-18)
 [Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.4.1...0.5.0)
-
-Note: This release should be avoided due to a bug. Use 0.5.1 instead.
 
 **Merged pull requests:**
 
@@ -45,12 +31,6 @@ Note: This release should be avoided due to a bug. Use 0.5.1 instead.
 
 ## [0.4.1](https://github.com/yapplabs/ember-wormhole/tree/0.4.1) (2016-09-12)
 [Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.4.0...0.4.1)
-
-**Closed issues:**
-
-- \[Glimmer\] Doesn't work in canary since glimmer was enabled [\#64](https://github.com/yapplabs/ember-wormhole/issues/64)
-- Explicitly define compatibility with Ember 1.13+ [\#62](https://github.com/yapplabs/ember-wormhole/issues/62)
-- Allow users to handle "failed to render into" errors [\#58](https://github.com/yapplabs/ember-wormhole/issues/58)
 
 **Merged pull requests:**
 
@@ -62,13 +42,6 @@ Note: This release should be avoided due to a bug. Use 0.5.1 instead.
 ## [0.4.0](https://github.com/yapplabs/ember-wormhole/tree/0.4.0) (2016-06-08)
 [Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.3.6...0.4.0)
 
-**Closed issues:**
-
-- Call an user-provided action on didInsertElement/willDestroyElement [\#49](https://github.com/yapplabs/ember-wormhole/issues/49)
-- Ability to replace content instead of appending [\#48](https://github.com/yapplabs/ember-wormhole/issues/48)
-- fastboot compatibility [\#47](https://github.com/yapplabs/ember-wormhole/issues/47)
-- Render a child view after target instead of inside it [\#45](https://github.com/yapplabs/ember-wormhole/issues/45)
-
 **Merged pull requests:**
 
 - Fix initializer arity deprecation [\#56](https://github.com/yapplabs/ember-wormhole/pull/56) ([bantic](https://github.com/bantic))
@@ -79,14 +52,6 @@ Note: This release should be avoided due to a bug. Use 0.5.1 instead.
 ## [0.3.6](https://github.com/yapplabs/ember-wormhole/tree/0.3.6) (2016-06-02)
 [Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.3.5...0.3.6)
 
-**Closed issues:**
-
-- \[Feature\] Destination component which fires up an action when wormhole is mounted [\#44](https://github.com/yapplabs/ember-wormhole/issues/44)
-- How do I hook in to the render/move life event? [\#43](https://github.com/yapplabs/ember-wormhole/issues/43)
-- Is there a callback \(action\) when the rendering has been done [\#42](https://github.com/yapplabs/ember-wormhole/issues/42)
-- Packaged versions of ember wormhole lose focus on "wormholing" [\#41](https://github.com/yapplabs/ember-wormhole/issues/41)
-- Inner component action sent to wormhole component instead of outer component \(canary\) [\#33](https://github.com/yapplabs/ember-wormhole/issues/33)
-
 **Merged pull requests:**
 
 - Avoid bind-attr in tests for newer Ember [\#51](https://github.com/yapplabs/ember-wormhole/pull/51) ([bantic](https://github.com/bantic))
@@ -94,11 +59,6 @@ Note: This release should be avoided due to a bug. Use 0.5.1 instead.
 
 ## [0.3.5](https://github.com/yapplabs/ember-wormhole/tree/0.3.5) (2016-02-01)
 [Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.3.4...0.3.5)
-
-**Closed issues:**
-
-- \[Idea\] component for the wormhole output  [\#39](https://github.com/yapplabs/ember-wormhole/issues/39)
-- "wormholing" elements destroys focus, selection [\#22](https://github.com/yapplabs/ember-wormhole/issues/22)
 
 **Merged pull requests:**
 
@@ -109,11 +69,6 @@ Note: This release should be avoided due to a bug. Use 0.5.1 instead.
 ## [0.3.4](https://github.com/yapplabs/ember-wormhole/tree/0.3.4) (2015-07-26)
 [Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.3.3...0.3.4)
 
-**Closed issues:**
-
-- Tests should not require `Ember.View.views` [\#28](https://github.com/yapplabs/ember-wormhole/issues/28)
-- Make ember-wormhole component extendible [\#19](https://github.com/yapplabs/ember-wormhole/issues/19)
-
 **Merged pull requests:**
 
 - BUGFIX fix tests to support beta and canary [\#29](https://github.com/yapplabs/ember-wormhole/pull/29) ([krisselden](https://github.com/krisselden))
@@ -122,19 +77,8 @@ Note: This release should be avoided due to a bug. Use 0.5.1 instead.
 ## [0.3.3](https://github.com/yapplabs/ember-wormhole/tree/0.3.3) (2015-06-24)
 [Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.3.2...0.3.3)
 
-**Closed issues:**
-
-- Self-documenting Code Snippets [\#11](https://github.com/yapplabs/ember-wormhole/issues/11)
-
 ## [0.3.2](https://github.com/yapplabs/ember-wormhole/tree/0.3.2) (2015-06-24)
 [Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.3.1...0.3.2)
-
-**Closed issues:**
-
-- How future proof is this library? [\#13](https://github.com/yapplabs/ember-wormhole/issues/13)
-- Uncaught TypeError: Cannot read property 'previousSibling' of null [\#12](https://github.com/yapplabs/ember-wormhole/issues/12)
-- Triggers error on Glimmer [\#9](https://github.com/yapplabs/ember-wormhole/issues/9)
-- Destination rerender breaks subsequent data changes [\#3](https://github.com/yapplabs/ember-wormhole/issues/3)
 
 **Merged pull requests:**
 
@@ -152,10 +96,6 @@ Note: This release should be avoided due to a bug. Use 0.5.1 instead.
 
 ## [0.2.0](https://github.com/yapplabs/ember-wormhole/tree/0.2.0) (2015-04-17)
 [Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.1.0...0.2.0)
-
-**Closed issues:**
-
-- Bound `to` & block template [\#2](https://github.com/yapplabs/ember-wormhole/issues/2)
 
 **Merged pull requests:**
 
