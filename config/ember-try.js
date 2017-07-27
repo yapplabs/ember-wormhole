@@ -52,15 +52,11 @@ module.exports = {
       }
     },
     {
-      name: '2.12',
-      dependencies: {
-        'ember': '~2.12.0'
-      }
-    },
-    {
-      name: '2.12',
-      dependencies: {
-        'ember': '~2.12.0'
+      name: 'ember-lts-2.12',
+      npm: {
+        devDependencies: {
+          'ember-source': '~2.12.0'
+        }
       }
     },
     {
