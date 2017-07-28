@@ -1,7 +1,8 @@
-import Ember from "ember";
+import { computed } from '@ember/object';
+import { A } from '@ember/array';
 import Wormhole from 'ember-wormhole/components/ember-wormhole';
 
-var titles = Ember.A([]);
+var titles = A([]);
 export default Wormhole.extend({
   init: function () {
     this._super();
@@ -12,7 +13,7 @@ export default Wormhole.extend({
     titles.push(this);
   },
 
-  destinationElement: Ember.computed(function () {
+  destinationElement: computed(function () {
     return document.getElementsByTagName('title')[0];
   }),
 

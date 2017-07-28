@@ -1,8 +1,7 @@
-import Ember from 'ember';
+import Controller from '@ember/controller';
+import { set } from '@ember/object';
 
-var set = Ember.set;
-
-export default Ember.Controller.extend({
+export default Controller.extend({
   isShowingModal: false,
   isShowingSidebarContent: false,
   sidebarId: 'sidebar',
