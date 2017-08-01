@@ -41,34 +41,24 @@ export default Component.extend({
     this._wormholeHeadNode = this._dom.createTextNode('');
     this._wormholeTailNode = this._dom.createTextNode('');
 
-    // A prop to help in the mocking of didInsertElement timing for Fastboot
-    this._didInsert = false;
-  },
-
-  /*
-   * didInsertElement does not fire in Fastboot. Here we use willRender and
-   * a _didInsert property to approximate the timing. Importantly we want
-   * to run appendToDestination after the child nodes have rendered.
-   */
-  willRender() {
-    this._super(...arguments);
-    if (!this._didInsert) {
-      this._didInsert = true;
-      run.schedule('afterRender', () => {
-        if (this.isDestroyed) { return; }
-        this._element = this._wormholeHeadNode.parentNode;
-        if (!this._element) {
-          throw new Error('The head node of a wormhole must be attached to the DOM');
-        }
-        this._appendToDestination();
-      });
-    }
+    /*
+     * didInsertElement does not fire in Fastboot, so we schedule this in
+     * init to be run after render. Importantly, we want to run
+     * appendToDestination after the child nodes have rendered.
+     */
+    run.schedule('afterRender', () => {
+      if (this.isDestroyed) { return; }
+      this._element = this._wormholeHeadNode.parentNode;
+      if (!this._element) {
+        throw new Error('The head node of a wormhole must be attached to the DOM');
+      }
+      this._appendToDestination();
+    });
   },
 
   willDestroyElement: function() {
     // not called in fastboot
     this._super(...arguments);
-    this._didInsert = false;
     let { _wormholeHeadNode, _wormholeTailNode } = this;
     run.schedule('render', () => {
       this._removeRange(_wormholeHeadNode, _wormholeTailNode);
