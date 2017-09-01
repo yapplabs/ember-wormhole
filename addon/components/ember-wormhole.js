@@ -1,12 +1,12 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { observer, computed } from '@ember/object';
+import { run } from '@ember/runloop';
 import layout from '../templates/components/ember-wormhole';
 import {
   getActiveElement,
   findElementById,
   getDOM
 } from '../utils/dom';
-
-const { Component, computed, observer, run } = Ember;
 
 export default Component.extend({
   layout,

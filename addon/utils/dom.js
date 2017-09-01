@@ -3,8 +3,7 @@
  * be it Fastboot's SimpleDOM or the browser's version.
  */
 
-import Ember from 'ember';
-let getOwner = Ember.getOwner;
+import { getOwner } from '@ember/application';
 
 export function getActiveElement() {
   if (typeof document === 'undefined') {
