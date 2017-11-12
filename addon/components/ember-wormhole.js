@@ -1,3 +1,4 @@
+import { alias } from '@ember/object/computed';
 import Component from '@ember/component';
 import { observer, computed } from '@ember/object';
 import { run } from '@ember/runloop';
@@ -14,7 +15,7 @@ export default Component.extend({
   /*
    * Attrs
    */
-  to: computed.alias('destinationElementId'),
+  to: alias('destinationElementId'),
   destinationElementId: null,
   destinationElement: computed('destinationElementId', 'renderInPlace', function() {
     let renderInPlace = this.get('renderInPlace');
