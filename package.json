@@ -1,6 +1,6 @@
 {
   "name": "ember-wormhole",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Render a child view somewhere else in the DOM.",
   "keywords": [
     "ember-addon"

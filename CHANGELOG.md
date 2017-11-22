@@ -1,7 +1,18 @@
 # Change Log
 
-## [v0.5.2](https://github.com/yapplabs/ember-wormhole/tree/v0.5.2) (2017-06-11)
-[Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.5.1...v0.5.2)
+## [0.5.3](https://github.com/yapplabs/ember-wormhole/tree/0.5.3) (2017-11-22)
+[Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.5.2...0.5.3)
+
+**Merged pull requests:**
+
+- Update ember-cli and dependencies. Use ember modules. [\#100](https://github.com/yapplabs/ember-wormhole/pull/100) ([btecu](https://github.com/btecu))
+- Add FastBoot tests [\#99](https://github.com/yapplabs/ember-wormhole/pull/99) ([simonihmig](https://github.com/simonihmig))
+- Use "New Module Imports" [\#98](https://github.com/yapplabs/ember-wormhole/pull/98) ([Turbo87](https://github.com/Turbo87))
+- ember-cli 2.14 updates [\#97](https://github.com/yapplabs/ember-wormhole/pull/97) ([Dhaulagiri](https://github.com/Dhaulagiri))
+- Fix wormhole insertion in FastBoot [\#96](https://github.com/yapplabs/ember-wormhole/pull/96) ([sandydoo](https://github.com/sandydoo))
+
+## [0.5.2](https://github.com/yapplabs/ember-wormhole/tree/0.5.2) (2017-06-12)
+[Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.5.1...0.5.2)
 
 **Merged pull requests:**
 
