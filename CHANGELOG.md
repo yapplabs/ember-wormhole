@@ -1,5 +1,13 @@
 # Change Log
 
+## [0.5.4](https://github.com/yapplabs/ember-wormhole/tree/0.5.4) (2017-12-09)
+[Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.5.3...0.5.4)
+
+**Merged pull requests:**
+
+- Fix CI [\#102](https://github.com/yapplabs/ember-wormhole/pull/102) ([cibernox](https://github.com/cibernox))
+- \[BUGFIX\] If `renderInPlace` is true, destinationElement is ignored [\#101](https://github.com/yapplabs/ember-wormhole/pull/101) ([cibernox](https://github.com/cibernox))
+
 ## [0.5.3](https://github.com/yapplabs/ember-wormhole/tree/0.5.3) (2017-11-22)
 [Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.5.2...0.5.3)
 
