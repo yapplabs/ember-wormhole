@@ -1,11 +1,23 @@
 /* eslint-env node */
 module.exports = {
+  useYarn: true,
   scenarios: [
     {
       name: 'ember-1.13',
-      dependencies: {
-        'ember': '~1.13.13'
-      }
+      bower: {
+        dependencies: {
+          ember: '~1.13.0',
+          'ember-cli-shims': '0.0.6',
+          'ember-data': '~1.13.0',
+        },
+      },
+      npm: {
+        devDependencies: {
+          'ember-cli-shims': null,
+          'ember-data': '~1.13.0',
+          'ember-source': null,
+        },
+      },
     },
     {
       name: 'ember-lts-2.4',
@@ -25,15 +37,31 @@ module.exports = {
     },
     {
       name: '2.6',
-      dependencies: {
-        'ember': '~2.6.0'
-      }
+      bower: {
+        dependencies: {
+          ember: '~2.6.0',
+          'ember-cli-shims': null,
+        },
+      },
+      npm: {
+        devDependencies: {
+          'ember-source': null,
+        },
+      },
     },
     {
       name: '2.7',
-      dependencies: {
-        'ember': '~2.7.0'
-      }
+      bower: {
+        dependencies: {
+          ember: '~2.7.0',
+          'ember-cli-shims': null,
+        },
+      },
+      npm: {
+        devDependencies: {
+          'ember-source': null,
+        },
+      },
     },
     {
       name: 'ember-lts-2.8',
@@ -56,6 +84,14 @@ module.exports = {
       npm: {
         devDependencies: {
           'ember-source': '~2.12.0'
+        }
+      }
+    },
+    {
+      name: 'ember-lts-2.16',
+      npm: {
+        devDependencies: {
+          'ember-source': '~2.16.0'
         }
       }
     },
