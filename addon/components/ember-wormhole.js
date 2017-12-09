@@ -67,14 +67,14 @@ export default Component.extend({
   },
 
   _destinationDidChange: observer('destinationElement', function() {
-    var destinationElement = this.get('destinationElement');
+    var destinationElement = this._getDestinationElement();
     if (destinationElement !== this._wormholeHeadNode.parentNode) {
       run.schedule('render', this, '_appendToDestination');
     }
   }),
 
   _appendToDestination() {
-    var destinationElement = this.get('destinationElement');
+    var destinationElement = this._getDestinationElement();
     if (!destinationElement) {
       var destinationElementId = this.get('destinationElementId');
       if (destinationElementId) {
@@ -110,6 +110,13 @@ export default Component.extend({
       }
       node = next;
     } while (node);
-  }
+  },
 
+  _getDestinationElement() {
+    let renderInPlace = this.get('renderInPlace');
+    if (renderInPlace) {
+      return this._element;
+    }
+    return this.get('destinationElement');
+  }
 });
