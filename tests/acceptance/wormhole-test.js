@@ -105,10 +105,10 @@ test('sidebar example in place', function(assert) {
   click('button:contains(Toggle In Place)');
   andThen(function() {
     assert.contentNotIn('sidebar');
-    assert.contentNotIn('othersidebar');
-    assert.contentIn('example-sidebar');
+    assert.contentIn('othersidebar');
+    assert.contentNotIn('example-sidebar');
   });
-  click('#sidebarWormhole button:contains(Hide)');
+  click('button:contains(Hide)');
   andThen(function() {
     assert.contentNotIn('sidebar');
     assert.contentNotIn('othersidebar');
