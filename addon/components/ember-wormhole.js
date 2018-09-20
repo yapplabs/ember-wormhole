@@ -17,17 +17,26 @@ export default Component.extend({
    */
   to: alias('destinationElementId'),
   destinationElementId: null,
-  destinationElement: computed('destinationElementId', 'renderInPlace', function() {
+  destinationElement: null,
+
+  _destination: computed('destinationElement', 'destinationElementId', 'renderInPlace', function() {
     let renderInPlace = this.get('renderInPlace');
     if (renderInPlace) {
       return this._element;
     }
-    let id = this.get('destinationElementId');
-    if (!id) {
-      return null;
+
+    let destinationElement = this.get('destinationElement');
+    if (destinationElement) {
+      return destinationElement;
     }
-    return findElementById(this._dom, id);
+    let destinationElementId = this.get('destinationElementId');
+    if (destinationElementId) {
+      return findElementById(this._dom, destinationElementId);
+    }
+    // no element found
+    return null;
   }),
+
   renderInPlace: false,
 
   /*
@@ -66,15 +75,15 @@ export default Component.extend({
     });
   },
 
-  _destinationDidChange: observer('destinationElement', function() {
-    var destinationElement = this._getDestinationElement();
+  _destinationDidChange: observer('_destination', function() {
+    var destinationElement = this.get('_destination');
     if (destinationElement !== this._wormholeHeadNode.parentNode) {
       run.schedule('render', this, '_appendToDestination');
     }
   }),
 
   _appendToDestination() {
-    var destinationElement = this._getDestinationElement();
+    var destinationElement = this.get('_destination');
     if (!destinationElement) {
       var destinationElementId = this.get('destinationElementId');
       if (destinationElementId) {
@@ -111,12 +120,4 @@ export default Component.extend({
       node = next;
     } while (node);
   },
-
-  _getDestinationElement() {
-    let renderInPlace = this.get('renderInPlace');
-    if (renderInPlace) {
-      return this._element;
-    }
-    return this.get('destinationElement');
-  }
 });

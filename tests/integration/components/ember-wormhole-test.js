@@ -41,4 +41,37 @@ test('if `renderInPlace` is truthy, the given `destinationElement` is ignored', 
 
   let content = document.querySelector('#wormhole-content');
   assert.notEqual(content.parentElement.id, 'wormhole-destination-element');
+
+  Ember.run(() => {
+    this.set('renderInPlace', false);
+  });
+
+  assert.equal(content.parentElement.id, 'wormhole-destination-element');
+});
+
+test('can switch `renderInPlace` with `destinationElementId`', function(assert) {
+  this.renderInPlace = true;
+
+  this.render(hbs`
+    <div id="wormhole-destination-element"></div>
+    {{#ember-wormhole renderInPlace=renderInPlace destinationElementId="wormhole-destination-element"}}
+      <span id="wormhole-content">template block text</span>
+    {{/ember-wormhole}}
+  `);
+
+  let content = document.querySelector('#wormhole-content');
+  assert.notEqual(content.parentElement.id, 'wormhole-destination-element');
+
+  Ember.run(() => {
+    this.set('renderInPlace', false);
+  });
+
+  assert.equal(content.parentElement.id, 'wormhole-destination-element');
+
+  Ember.run(() => {
+    // switch back
+    this.set('renderInPlace', true);
+  });
+
+  assert.notEqual(content.parentElement.id, 'wormhole-destination-element');
 });
