@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.5.4](https://github.com/yapplabs/ember-wormhole/tree/0.5.4) (2018-09-20)
+[Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.5.4...0.5.4)
+
+**Merged pull requests:**
+
+- Fix \#104 Toggling renderInPlace [\#107](https://github.com/yapplabs/ember-wormhole/pull/107) ([dnachev](https://github.com/dnachev))
+
 ## [0.5.4](https://github.com/yapplabs/ember-wormhole/tree/0.5.4) (2017-12-09)
 [Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.5.3...0.5.4)
 
