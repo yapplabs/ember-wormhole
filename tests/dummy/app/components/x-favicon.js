@@ -4,7 +4,5 @@ import layout from '../templates/components/x-favicon';
 
 export default Wormhole.extend({
   layout,
-  destinationElement: computed(function () {
-    return document.getElementsByTagName('head')[0];
-  })
+  destinationElement: computed.reads('_dom.head')
 });

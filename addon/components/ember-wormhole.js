@@ -1,7 +1,7 @@
 import { alias } from '@ember/object/computed';
 import Component from '@ember/component';
 import { observer, computed } from '@ember/object';
-import { run } from '@ember/runloop';
+import { schedule } from '@ember/runloop';
 import layout from '../templates/components/ember-wormhole';
 import {
   getActiveElement,
@@ -56,7 +56,7 @@ export default Component.extend({
      * init to be run after render. Importantly, we want to run
      * appendToDestination after the child nodes have rendered.
      */
-    run.schedule('afterRender', () => {
+    schedule('afterRender', () => {
       if (this.isDestroyed) { return; }
       this._element = this._wormholeHeadNode.parentNode;
       if (!this._element) {
@@ -70,7 +70,7 @@ export default Component.extend({
     // not called in fastboot
     this._super(...arguments);
     let { _wormholeHeadNode, _wormholeTailNode } = this;
-    run.schedule('render', () => {
+    schedule('render', () => {
       this._removeRange(_wormholeHeadNode, _wormholeTailNode);
     });
   },
@@ -78,7 +78,7 @@ export default Component.extend({
   _destinationDidChange: observer('_destination', function() {
     var destinationElement = this.get('_destination');
     if (destinationElement !== this._wormholeHeadNode.parentNode) {
-      run.schedule('render', this, '_appendToDestination');
+      schedule('render', this, '_appendToDestination');
     }
   }),
 

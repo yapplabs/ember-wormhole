@@ -1,257 +1,189 @@
-import $ from 'jquery';
-import set from 'ember-metal/set';
-import QUnit from 'qunit';
-import { test, skip } from 'qunit';
-import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
+import { set } from '@ember/object';
+import QUnit, { module, test } from 'qunit';
+import { setupApplicationTest } from 'ember-qunit';
+import { click, fillIn, currentRouteName, visit, settled, setupOnerror } from '@ember/test-helpers';
+import { getData } from 'dummy/utils/data';
 
-const assert = QUnit.assert;
+function query(sel) {
+  let match = /:contains\(([^)]+)\)/.exec(sel);
+  let contains = null;
+  if (match !== null) {
+    contains = match[1];
+    sel = sel.slice(0, match.index);
+  }
 
-assert.contentIn = function(sidebarId, content) {
+  let elems = Array.from(document.querySelectorAll(sel));
+  if (contains !== null) {
+    elems = elems.filter((el) => el.textContent.includes(contains));
+  }
+  return elems;
+}
+
+QUnit.assert.contentIn = function(sidebarId, content) {
   content = content || 'h1';
-  this.equal(findWithAssert(`#${sidebarId} ${content}`).length, 1, `content is visible in sidebar #${sidebarId}`);
+  this.equal(query(`#${sidebarId} ${content}`).length, 1, `content is visible in sidebar #${sidebarId}`);
 };
-assert.contentNotIn = function(sidebarId, content) {
+
+QUnit.assert.contentNotIn = function(sidebarId, content) {
   content = content || 'h1';
-  this.equal(find(`#${sidebarId} ${content}`).length, 0, `content is not visible in sidebar #${sidebarId}`);
+  this.equal(query(`#${sidebarId} ${content}`).length, 0, `content is not visible in sidebar #${sidebarId}`);
 };
 
-moduleForAcceptance('Acceptance: Wormhole');
+module('Acceptance: Wormhole', function(hooks) {
+  setupApplicationTest(hooks);
 
-test('modal example', function(assert) {
-  visit('/');
-  andThen(function() {
-    assert.equal(currentPath(), 'index');
+  test('modal example', async function(assert) {
+    await visit('/');
+    assert.equal(currentRouteName(), 'index');
+    await click(query('button:contains(Toggle Modal)')[0]);
+    assert.equal(query('#modals .overlay').length, 1, 'overlay is visible');
+    assert.equal(query('#modals .dialog').length, 1, 'dialog is visible');
+    await click('#modals .overlay');
+    assert.equal(query('#modals .overlay').length, 0, 'overlay is not visible');
+    assert.equal(query('#modals .dialog').length, 0, 'dialog is not visible');
+    await fillIn('.username', 'coco');
+    await click(query('button:contains(Toggle Modal)')[0]);
+    assert.equal(query('#modals .dialog p:contains(coco)').length, 1, 'up-to-date username is shown in dialog');
   });
-  click('button:contains(Toggle Modal)');
-  andThen(function() {
-    assert.equal($('#modals .overlay').length, 1, 'overlay is visible');
-    assert.equal($('#modals .dialog').length, 1, 'dialog is visible');
-  });
-  click('#modals .overlay');
-  andThen(function() {
-    assert.equal($('#modals .overlay').length, 0, 'overlay is not visible');
-    assert.equal($('#modals .dialog').length, 0, 'dialog is not visible');
-  });
-  fillIn('.username', 'coco');
-  click('button:contains(Toggle Modal)');
-  andThen(function() {
-    assert.equal($('#modals .dialog p:contains(coco)').length, 1, 'up-to-date username is shown in dialog');
-  });
-});
 
-test('sidebar example', function(assert) {
-  let sidebarWormhole;
-  let header1, header2;
-  let sidebarFirstNode1, sidebarFirstNode2;
+  test('sidebar example', async function(assert) {
+    let sidebarWormhole;
+    let header1, header2;
+    let sidebarFirstNode1, sidebarFirstNode2;
 
-  visit('/');
-  andThen(function() {
-    assert.equal(currentPath(), 'index');
-  });
-  click('button:contains(Toggle Sidebar Content)');
-  andThen(function() {
-    sidebarWormhole = $('#sidebarWormhole').data('ember-wormhole');
+    await visit('/');
+    assert.equal(currentRouteName(), 'index');
+    await click(query('button:contains(Toggle Sidebar Content)')[0]);
+    sidebarWormhole = getData(document.getElementById('sidebarWormhole'));
     sidebarFirstNode1 = sidebarWormhole._wormholeHeadNode;
-    header1 = $('#sidebar h1');
+    header1 = query('#sidebar h1');
     assert.contentIn('sidebar');
-  });
-  fillIn('.first-name', 'Ray');
-  fillIn('.last-name', 'Cohen');
-  andThen(function() {
+    await fillIn('.first-name', 'Ray');
+    await fillIn('.last-name', 'Cohen');
     assert.contentIn('sidebar', 'p:contains(Ray Cohen)');
-  });
-  click('#sidebar button:contains(Switch)');
-  andThen(function() {
+    await click(query('#sidebar button:contains(Switch)')[0]);
     sidebarFirstNode2 = sidebarWormhole._wormholeHeadNode;
-    header2 = $('#othersidebar h1');
-    assert.equal(header1.text(), header2.text(), 'same header text');
-    assert.ok(header1.is(header2), 'same header elements'); // appended elsewhere
-    assert.ok(sidebarFirstNode1.isSameNode(sidebarFirstNode2), 'different first nodes'); // appended elsewhere
+    header2 = query('#othersidebar h1');
+    assert.equal(header1.textContent, header2.textContent, 'same header text');
+    assert.ok(header1[0] === header2[0], 'same header elements'); // appended elsewhere
+    assert.ok(sidebarFirstNode1 === sidebarFirstNode2, 'different first nodes'); // appended elsewhere
     assert.contentNotIn('sidebar');
     assert.contentIn('othersidebar');
-  });
-  click('#othersidebar button:contains(Switch)');
-  andThen(function() {
+    await click(query('#othersidebar button:contains(Switch)')[0]);
     assert.contentIn('sidebar');
     assert.contentNotIn('othersidebar');
-  });
-  click('#sidebar button:contains(Hide)');
-  andThen(function() {
+    await click(query('#sidebar button:contains(Hide)')[0]);
     assert.contentNotIn('sidebar');
     assert.contentNotIn('othersidebar');
   });
-});
 
-test('sidebar example in place', function(assert) {
-  visit('/');
-  click('button:contains(Toggle Sidebar Content)');
-  andThen(function() {
+  test('sidebar example in place', async function(assert) {
+    await visit('/');
+    await click(query('button:contains(Toggle Sidebar Content)')[0]);
     assert.contentIn('sidebar');
     assert.contentNotIn('othersidebar');
     assert.contentNotIn('example-sidebar');
-  });
-  click('button:contains(Toggle In Place)');
-  andThen(function() {
+    await click(query('button:contains(Toggle In Place)')[0]);
     assert.contentNotIn('sidebar');
     assert.contentNotIn('othersidebar');
     assert.contentIn('example-sidebar');
-  });
-  click('button:contains(Switch Sidebars From Without)');
-  andThen(function() {
+    await click(query('button:contains(Switch Sidebars From Without)')[0]);
     assert.contentNotIn('sidebar');
     assert.contentNotIn('othersidebar');
     assert.contentIn('example-sidebar');
-  });
-  click('button:contains(Toggle In Place)');
-  andThen(function() {
+    await click(query('button:contains(Toggle In Place)')[0]);
     assert.contentNotIn('sidebar');
     assert.contentIn('othersidebar');
     assert.contentNotIn('example-sidebar');
-  });
-  click('button:contains(Hide)');
-  andThen(function() {
+    await click(query('button:contains(Hide)')[0]);
     assert.contentNotIn('sidebar');
     assert.contentNotIn('othersidebar');
     assert.contentNotIn('example-sidebar');
   });
-});
 
-test('survives rerender', function(assert) {
-  let sidebarWormhole;
-  let header1, header2;
+  test('survives rerender', async function(assert) {
+    let sidebarWormhole;
+    let header1, header2;
 
-  visit('/');
-  andThen(function() {
-    assert.equal(currentPath(), 'index');
-  });
+    await visit('/');
+    assert.equal(currentRouteName(), 'index');
 
-  click('button:contains(Toggle Sidebar Content)');
-  andThen(function() {
-    sidebarWormhole = $('#sidebarWormhole').data('ember-wormhole');
-    header1 = $('#sidebar h1');
+    await click(query('button:contains(Toggle Sidebar Content)')[0]);
+    sidebarWormhole = getData(document.getElementById('sidebarWormhole'));
+    header1 = query('#sidebar h1');
     assert.contentIn('sidebar');
-  });
 
-  fillIn('.first-name', 'Ringo');
-  fillIn('.last-name', 'Starr');
-  andThen(function() {
+    await fillIn('.first-name', 'Ringo');
+    await fillIn('.last-name', 'Starr');
     assert.contentIn('sidebar', 'p:contains(Ringo Starr)');
-  });
-
-  andThen(function() {
     sidebarWormhole.rerender();
-  });
-
-  andThen(function() {
-    header2 = $('#sidebar h1');
+    header2 = query('#sidebar h1');
     assert.contentIn('sidebar', 'p:contains(Ringo Starr)');
-    assert.equal(header1.text(), header2.text(), 'same header text');
+    assert.equal(header1.textContent, header2.textContent, 'same header text');
   });
-});
 
-// throws tests do not working with latest Ember, so skip them for now...
-skip('throws if destination element not in DOM', function(assert) {
-  visit('/');
-  andThen(function() {
-    $('#sidebar').remove();
-  });
-  let wormholeToMissingSidebar = function() {
-    $('button:contains(Toggle Sidebar Content)').click();
-  };
-  andThen(function() {
-    assert.throws(
-      wormholeToMissingSidebar,
-      /ember-wormhole failed to render into/,
-      'throws on missing destination element'
-    );
-  });
-});
+  test('throws if destination element not in DOM', async function(assert) {
+    await visit('/');
 
-skip('throws if destination element id falsy', function(assert) {
-  visit('/');
-  let wormholeToNowhere = function() {
-    application.__container__.lookup('controller:application').set('sidebarId', null); // eslint-disable-line no-undef
-    $('button:contains(Toggle Sidebar Content)').click();
-  };
-  andThen(function() {
-    assert.throws(
-      wormholeToNowhere,
-      /ember-wormhole failed to render content because the destinationElementId/,
-      'throws on missing destination element id'
-    );
-  });
-});
+    let lastError;
+    setupOnerror((error) => lastError = error);
 
-test('preserves focus', function (assert) {
-  let sidebarWormhole;
-  let focused;
-  visit('/');
-  andThen(function() {
-    assert.equal(currentPath(), 'index');
+    let sidebar = document.getElementById('sidebar');
+    sidebar.parentNode.removeChild(sidebar);
+
+    await click(query('button:contains(Toggle Sidebar Content)')[0]);
+
+    assert.equal(lastError && lastError.message, "ember-wormhole failed to render into '#sidebar' because the element is not in the DOM");
   });
-  click('button:contains(Toggle Sidebar Content)');
-  andThen(function() {
-    sidebarWormhole = $('#sidebarWormhole').data('ember-wormhole');
+
+  test('throws if destination element id falsy', async function(assert) {
+    await visit('/');
+
+    let lastError;
+    setupOnerror((error) => lastError = error);
+
+    this.owner.lookup('controller:index').set('sidebarId', null);
+    await click(query('button:contains(Toggle Sidebar Content)')[0]);
+
+    assert.equal(lastError && lastError.message, 'ember-wormhole failed to render content because the destinationElementId was set to an undefined or falsy value.');
+  });
+
+  test('preserves focus', async function(assert) {
+    let sidebarWormhole;
+    let focused;
+    await visit('/');
+    assert.equal(currentRouteName(), 'index');
+    await click(query('button:contains(Toggle Sidebar Content)')[0]);
+    sidebarWormhole = getData(query('#sidebarWormhole')[0]);
     assert.contentIn('sidebar');
     assert.contentNotIn('othersidebar');
-    $('button:contains(Hide Sidebar Content)').focus();
+    query('button:contains(Hide Sidebar Content)')[0].focus();
     focused = document.activeElement;
-  });
-  andThen(function() {
     set(sidebarWormhole, 'to', 'othersidebar');
-  });
-  andThen(function() {
+    await settled();
     assert.contentNotIn('sidebar');
     assert.contentIn('othersidebar');
     assert.equal(document.activeElement, focused);
   });
-});
 
-test('favicon example', function(assert) {
-  visit('/');
-  andThen(function () {
-    let favicon = $('link[rel="icon"]');
-    assert.equal(favicon.attr('href'), 'http://emberjs.com/images/favicon.png');
+  test('favicon example', async function(assert) {
+    await visit('/');
+    let favicon = query('link[rel="icon"]')[0];
+    assert.equal(favicon.getAttribute('href'), 'http://emberjs.com/images/favicon.png');
+
+    await fillIn('.favicon', 'http://handlebarsjs.com/images/favicon.png');
+    let favicon2 = query('link[rel="icon"]')[0];
+    assert.equal(favicon2.getAttribute('href'), 'http://handlebarsjs.com/images/favicon.png');
   });
 
-  fillIn('.favicon', 'http://handlebarsjs.com/images/favicon.png');
-  andThen(function () {
-    let favicon = $('link[rel="icon"]');
-    assert.equal(favicon.attr('href'), 'http://handlebarsjs.com/images/favicon.png');
-  });
-});
-
-test('document-title example', function(assert) {
-  visit('/');
-  andThen(function () {
+  test('document-title example', async function(assert) {
+    await visit('/');
     assert.equal(document.title, 'ember-wormhole');
-  });
 
-  click('#toggle-title');
-  andThen(function () {
+    await click('#toggle-title');
     assert.equal(document.title, 'ember-wormhole Testing');
-  });
 
-  click('#toggle-title');
-  andThen(function () {
+    await click('#toggle-title');
     assert.equal(document.title, 'ember-wormhole');
-  });
-});
-
-// tests for dynamic content updates inside wormhole, which is failing with Glimmer2, see https://github.com/yapplabs/ember-wormhole/issues/66
-skip('toggle modal overlay', function(assert) {
-  visit('/');
-  andThen(function() {
-    assert.equal(currentPath(), 'index');
-  });
-  click('button:contains(Toggle Modal)');
-  andThen(function() {
-    assert.equal($('#modals .overlay').length, 1, 'overlay is visible');
-    assert.equal($('#modals .dialog').length, 1, 'dialog is visible');
-  });
-  click('button:contains(Toggle Overlay)');
-  andThen(function() {
-    assert.equal($('#modals .overlay').length, 0, 'overlay is not visible');
-    assert.equal($('#modals .dialog').length, 1, 'dialog is still visible');
   });
 });

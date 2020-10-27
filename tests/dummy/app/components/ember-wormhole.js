@@ -1,12 +1,13 @@
 import { on } from '@ember/object/evented';
 import EmberWormhole from 'ember-wormhole/components/ember-wormhole';
+import { setData, removeData } from 'dummy/utils/data';
 
 export default EmberWormhole.extend({
   _storeSelf: on('didInsertElement', function () {
-    this.$().data('ember-wormhole', this);
+    setData(this.element, this);
   }),
 
   _removeSelf: on('willDestroyElement', function () {
-    this.$().removeData();
+    removeData(this.element);
   })
 });
