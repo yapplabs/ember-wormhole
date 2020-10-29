@@ -8,13 +8,23 @@ export default Wormhole.extend({
     this._super();
 
     if (titles.length === 0) {
-      document.title = '';
+      this._dom.title = '';
     }
     titles.push(this);
   },
 
   destinationElement: computed(function () {
-    return document.getElementsByTagName('title')[0];
+    let head = this._dom.head;
+    let node = head.firstChild;
+    while (node !== null) {
+      if (node.nodeType === 1 && node.tagName === 'TITLE') {
+        return node;
+      }
+      node = node.nextSibling;
+    }
+    node = this._dom.createElement('title');
+    head.appendChild(node);
+    return node;
   }),
 
   willDestroyElement: function () {
