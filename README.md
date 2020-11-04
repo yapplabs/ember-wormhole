@@ -134,6 +134,11 @@ To:
 {{/ember-wormhole}}
 ```
 
+## Ember's native in-element
+
+Since Ember 3.21 there is also a native `in-element` helper. This helper offer less functionality than this addon,
+but may be enough for some use-cases. [More details](https://api.emberjs.com/ember/3.21/classes/Ember.Templates.helpers/methods/in-element?anchor=in-element)
+
 ## Development Setup
 
 ### Simple Installation
