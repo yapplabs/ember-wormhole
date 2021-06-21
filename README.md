@@ -136,8 +136,10 @@ To:
 
 ## Ember's native in-element
 
-Since Ember 3.21 there is also a native `in-element` helper. This helper offer less functionality than this addon,
-but may be enough for some use-cases. [More details](https://api.emberjs.com/ember/3.21/classes/Ember.Templates.helpers/methods/in-element?anchor=in-element)
+Since Ember 3.21 there is also a native `in-element` helper. This helper offer a bit less functionality than this addon,
+but may be enough for your use case! For more info see
+[the in-element API docs](https://api.emberjs.com/ember/3.21/classes/Ember.Templates.helpers/methods/in-element?anchor=in-element)
+and [the excellent article by Faith Or comparing ember-wormhole and in-element](https://www.linkedin.com/pulse/emberjs-using-in-element-helper-faith-or/)
 
 ## Development Setup
 
