@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-classic-classes, ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/no-runloop, ember/require-tagless-components, prettier/prettier */
 import { alias } from '@ember/object/computed';
 import Component from '@ember/component';
 import { observer, computed } from '@ember/object';

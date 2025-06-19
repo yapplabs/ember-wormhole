@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-component-lifecycle-hooks, ember/require-super-in-lifecycle-hooks, prettier/prettier */
 import { computed } from '@ember/object';
 import { A } from '@ember/array';
 import Wormhole from 'ember-wormhole/components/ember-wormhole';

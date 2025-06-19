@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-classic-classes, ember/no-classic-components, ember/require-tagless-components, prettier/prettier */
 import Component from '@ember/component';
 import { A } from '@ember/array';
 import EmberObject, { computed } from '@ember/object';

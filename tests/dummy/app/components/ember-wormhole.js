@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { on } from '@ember/object/evented';
 import EmberWormhole from 'ember-wormhole/components/ember-wormhole';
 import { setData, removeData } from 'dummy/utils/data';
