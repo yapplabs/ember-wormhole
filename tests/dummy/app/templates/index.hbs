@@ -1,6 +1,6 @@
-{{x-favicon href=favicon}}
+<XFavicon @href={{this.favicon}} />
 
-{{#if isTestingDocumentTitle}}
+{{#if this.isTestingDocumentTitle}}
 {{#document-title}} Testing{{/document-title}}
 {{/if}}
 {{#document-title}}ember-wormhole{{/document-title}}
@@ -32,7 +32,7 @@
 
 <button type="button" id="toggle-title" {{action 'toggleTitle'}}>Toggle Title</button>
 <label>
-  Favicon: {{input value=favicon class="favicon"}}
+  Favicon: <Input @value={{this.favicon}} class="favicon" />
 </label>
 
 <div class='example' id='example-modal'>
@@ -41,11 +41,11 @@
   <button type="button" {{action 'toggleModal'}}>Toggle Modal</button>
   {{#current-user as |user|}}
   <label>
-    Username: {{input value=user.username class="username"}}
+    Username: <Input @value={{user.username}} class="username" />
   </label>
-  {{#if isShowingModal}}
+  {{#if this.isShowingModal}}
   {{#ember-wormhole to='modals'}}
-  {{#if isShowingOverlay}}
+  {{#if this.isShowingOverlay}}
   <div role="button" class="overlay" {{action 'toggleModal'}}></div>
   {{/if}}
   <div class="dialog">
@@ -69,13 +69,13 @@
   <button type="button" {{action 'switchSidebars'}}>Switch Sidebars From Without</button>
   <button type="button" {{action 'toggleInPlace'}}>Toggle In Place</button>
   <label>
-    First Name: {{input value=user.firstName class="first-name"}}
+    First Name: <Input @value={{user.firstName}} class="first-name" />
   </label>
   <label>
-    Last Name: {{input value=user.lastName class="last-name"}}
+    Last Name: <Input @value={{user.lastName}} class="last-name" />
   </label>
-  {{#if isShowingSidebarContent}}
-  {{#ember-wormhole to=sidebarId id='sidebarWormhole' renderInPlace=isInPlace}}
+  {{#if this.isShowingSidebarContent}}
+  {{#ember-wormhole to=this.sidebarId id='sidebarWormhole' renderInPlace=this.isInPlace}}
   <h1>Epic sidebar action</h1>
   <p>Here we have some content which is bound from the context
     where the wormhole component was used: "{{user.fullName}}"</p>
