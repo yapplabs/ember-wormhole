@@ -52,7 +52,7 @@
     "ember-source": "~3.22.0",
     "ember-source-channel-url": "^3.0.0",
     "ember-template-lint": "^2.14.0",
-    "ember-try": "^1.4.0",
+    "ember-try": "^4.0.0",
     "eslint": "^7.11.0",
     "eslint-plugin-ember": "^9.3.0",
     "eslint-plugin-node": "^11.1.0",
