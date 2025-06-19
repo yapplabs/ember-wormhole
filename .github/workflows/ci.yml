@@ -51,8 +51,8 @@ jobs:
   try-scenarios:
     name: ${{ matrix.try-scenario }}
     runs-on: ubuntu-latest
+    needs: "test"
     timeout-minutes: 10
-    needs: 'test'
 
     strategy:
       fail-fast: false
@@ -60,11 +60,18 @@ jobs:
         try-scenario:
           - ember-lts-3.16
           - ember-lts-3.20
+          - ember-lts-3.24
+          - ember-lts-3.28
+          - ember-lts-4.4
+          - ember-lts-4.8
+          - ember-lts-4.12
+          - ember-lts-5.4
+          - ember-lts-5.8
           - ember-release
           - ember-beta
           - ember-canary
-          - ember-default-with-jquery
-          - ember-classic
+          - embroider-safe
+          - embroider-optimized
 
     steps:
       - uses: actions/checkout@v4
@@ -76,4 +83,4 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       - name: Run Tests
-        run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }} --skip-cleanup
+        run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }}
