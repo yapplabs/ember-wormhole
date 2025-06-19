@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier, qunit/no-assert-equal */
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
@@ -12,6 +13,7 @@ module('Integration | Component | ember wormhole', function(hooks) {
 
     // Template block usage:
     await render(hbs`
+      {{! template-lint-disable no-curly-component-invocation }}
       <div id="wormhole"></div>
       {{#ember-wormhole to="wormhole"}}
         template block text
@@ -26,6 +28,7 @@ module('Integration | Component | ember wormhole', function(hooks) {
     this.renderInPlace = true;
 
     await render(hbs`
+      {{! template-lint-disable no-curly-component-invocation }}
       <div id="wormhole-destination-element"></div>
       {{#if this.renderEnabled}}
         {{#ember-wormhole renderInPlace=this.renderInPlace destinationElement=this.destinationElement}}
@@ -52,6 +55,7 @@ module('Integration | Component | ember wormhole', function(hooks) {
     this.renderInPlace = true;
 
     await render(hbs`
+      {{! template-lint-disable no-curly-component-invocation }}
       <div id="wormhole-destination-element"></div>
       {{#ember-wormhole renderInPlace=this.renderInPlace destinationElementId="wormhole-destination-element"}}
         <span id="wormhole-content">template block text</span>

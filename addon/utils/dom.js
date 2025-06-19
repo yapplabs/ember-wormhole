@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /*
  * Implement some helpers methods for interacting with the DOM,
  * be it Fastboot's SimpleDOM or the browser's version.

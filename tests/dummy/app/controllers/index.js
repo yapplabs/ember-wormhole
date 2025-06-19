@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-actions-hash, ember/no-classic-classes, prettier/prettier */
 import Controller from '@ember/controller';
 import { set } from '@ember/object';
 
