@@ -31,7 +31,7 @@
   that inject Ember into the <code>head</code> of the page.
 </p>
 
-<button type="button" id="toggle-title" {{action 'toggleTitle'}}>Toggle Title</button>
+<button type="button" id="toggle-title" {{on "click" this.toggleTitle}}>Toggle Title</button>
 <label>
   Favicon: <Input @value={{this.favicon}} class="favicon" />
 </label>
@@ -39,7 +39,7 @@
 <div class='example' id='example-modal'>
   <h2>Modal Example</h2>
   {{!-- BEGIN-SNIPPET modal --}}
-  <button type="button" {{action 'toggleModal'}}>Toggle Modal</button>
+  <button type="button" {{on "click" this.toggleModal}}>Toggle Modal</button>
   {{#current-user as |user|}}
   <label>
     Username: <Input @value={{user.username}} class="username" />
@@ -47,14 +47,14 @@
   {{#if this.isShowingModal}}
   {{#ember-wormhole to='modals'}}
   {{#if this.isShowingOverlay}}
-  <div role="button" class="overlay" {{action 'toggleModal'}}></div>
+  <div role="button" class="overlay" {{on "click" this.toggleModal}}></div>
   {{/if}}
   <div class="dialog">
     <h1>Hi, I'm a simple modal dialog</h1>
     <p>Here we have some content which is bound from the context
       where the wormhole component was used: "{{user.username}}"</p>
-    <button type="button" {{action 'toggleModal'}}>Close</button>
-    <button type="button" {{action 'toggleOverlay'}}>Toggle Overlay</button>
+    <button type="button" {{on "click" this.toggleModal}}>Close</button>
+    <button type="button" {{on "click" this.toggleOverlay}}>Toggle Overlay</button>
   </div>
   {{/ember-wormhole}}
   {{/if}}
@@ -66,9 +66,9 @@
   <h2>Sidebar Example</h2>
   {{!-- BEGIN-SNIPPET sidebar --}}
   {{#current-user as |user|}}
-  <button type="button" {{action 'toggleSidebarContent'}}>Toggle Sidebar Content</button>
-  <button type="button" {{action 'switchSidebars'}}>Switch Sidebars From Without</button>
-  <button type="button" {{action 'toggleInPlace'}}>Toggle In Place</button>
+  <button type="button" {{on "click" this.toggleSidebarContent}}>Toggle Sidebar Content</button>
+  <button type="button" {{on "click" this.switchSidebars}}>Switch Sidebars From Without</button>
+  <button type="button" {{on "click" this.toggleInPlace}}>Toggle In Place</button>
   <label>
     First Name: <Input @value={{user.firstName}} class="first-name" />
   </label>
@@ -80,8 +80,8 @@
   <h1>Epic sidebar action</h1>
   <p>Here we have some content which is bound from the context
     where the wormhole component was used: "{{user.fullName}}"</p>
-  <button type="button" {{action 'toggleSidebarContent'}}>Hide Sidebar Content</button>
-  <button type="button" {{action 'switchSidebars'}}>Switch Sidebars From Within</button>
+  <button type="button" {{on "click" this.toggleSidebarContent}}>Hide Sidebar Content</button>
+  <button type="button" {{on "click" this.switchSidebars}}>Switch Sidebars From Within</button>
   {{/ember-wormhole}}
   {{/if}}
   {{/current-user}}

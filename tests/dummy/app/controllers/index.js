@@ -1,34 +1,45 @@
-/* eslint-disable ember/no-actions-hash, ember/no-classic-classes, prettier/prettier */
+/* eslint-disable ember/classic-decorator-no-classic-methods */
 import Controller from '@ember/controller';
-import { set } from '@ember/object';
+import { set, action } from '@ember/object';
 
-export default Controller.extend({
-  isShowingModal: false,
-  isShowingSidebarContent: false,
-  sidebarId: 'sidebar',
-  isInPlace: false,
-  isTestingDocumentTitle: false,
-  favicon: "http://emberjs.com/images/favicon.png",
-  isShowingOverlay: true,
-  actions: {
-    toggleModal() {
-      this.toggleProperty('isShowingModal');
-    },
-    toggleSidebarContent() {
-      this.toggleProperty('isShowingSidebarContent');
-    },
-    switchSidebars() {
-      var otherSidebarId = this.sidebarId === 'sidebar' ? 'othersidebar' : 'sidebar';
-      set(this, 'sidebarId', otherSidebarId);
-    },
-    toggleInPlace() {
-      this.toggleProperty('isInPlace');
-    },
-    toggleTitle() {
-      this.toggleProperty('isTestingDocumentTitle');
-    },
-    toggleOverlay() {
-      this.toggleProperty('isShowingOverlay');
-    }
+export default class IndexController extends Controller {
+  isShowingModal = false;
+  isShowingSidebarContent = false;
+  sidebarId = 'sidebar';
+  isInPlace = false;
+  isTestingDocumentTitle = false;
+  favicon = 'http://emberjs.com/images/favicon.png';
+  isShowingOverlay = true;
+
+  @action
+  toggleModal() {
+    this.toggleProperty('isShowingModal');
   }
-});
+
+  @action
+  toggleSidebarContent() {
+    this.toggleProperty('isShowingSidebarContent');
+  }
+
+  @action
+  switchSidebars() {
+    var otherSidebarId =
+      this.sidebarId === 'sidebar' ? 'othersidebar' : 'sidebar';
+    set(this, 'sidebarId', otherSidebarId);
+  }
+
+  @action
+  toggleInPlace() {
+    this.toggleProperty('isInPlace');
+  }
+
+  @action
+  toggleTitle() {
+    this.toggleProperty('isTestingDocumentTitle');
+  }
+
+  @action
+  toggleOverlay() {
+    this.toggleProperty('isShowingOverlay');
+  }
+}
