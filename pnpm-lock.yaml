@@ -123,6 +123,18 @@ importers:
       eslint-plugin-qunit:
         specifier: ^8.1.2
         version: 8.2.5(eslint@8.57.1)
+      lint-to-the-future:
+        specifier: ^2.6.3
+        version: 2.6.3(encoding@0.1.13)
+      lint-to-the-future-ember-template:
+        specifier: ^3.1.0
+        version: 3.1.0(ember-template-lint@6.1.0)
+      lint-to-the-future-eslint:
+        specifier: ^3.1.0
+        version: 3.1.0(eslint@8.57.1)
+      lint-to-the-future-stylelint:
+        specifier: ^2.1.0
+        version: 2.1.0(stylelint@15.11.0(typescript@5.9.2))
       loader.js:
         specifier: ^4.7.0
         version: 4.7.0
@@ -2019,6 +2031,10 @@ packages:
     resolution: {integrity: sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==}
     engines: {node: '>= 12'}
 
+  commander@9.5.0:
+    resolution: {integrity: sha512-KRs7WVDKg86PWiuAqhDrAQnTXZKraVcCc6vFdL14qrZ/DcWwuRo7VoiYXalXO7S5GKpqYiVEwCbgFDfxNHKJBQ==}
+    engines: {node: ^12.20.0 || >=14}
+
   common-ancestor-path@1.0.1:
     resolution: {integrity: sha512-L3sHRo1pXXEqX8VU28kfgUY+YGsk09hPqZiZmLacNib6XNTCM8ubYeT7ryXQw8asB1sKgcU5lkB7ONug08aB8w==}
 
@@ -2231,6 +2247,9 @@ packages:
 
   content-tag@2.0.3:
     resolution: {integrity: sha512-htLIdtfhhKW2fHlFLnZH7GFzHSdSpHhDLrWVswkNiiPMZ5uXq5JfrGboQKFhNQuAAFF8VNB2EYUj3MsdJrKKpg==}
+
+  content-tag@3.1.3:
+    resolution: {integrity: sha512-4Kiv9mEroxuMXfWUNUHcljVJgxThCNk7eEswdHMXdzJnkBBaYDqDwzHkoh3F74JJhfU3taJOsgpR6oEGIDg17g==}
 
   content-type@1.0.5:
     resolution: {integrity: sha512-nTjqfcBFEipKdXCv4YDQWCfmcLZKm81ldF0pAopTvyrFGVbcR6P/VAAd5G7N+0tTr8QqiU0tFadD6FK4NtJwOA==}
@@ -3634,9 +3653,17 @@ packages:
     resolution: {integrity: sha512-Hs59xBNfUIunMFgWAbGX5cq6893IbWg4KnrjbYwX3tx0ztorVgTDA6B2sxf8ejHJ4wz8BqGUMYlnzNBer5NvGg==}
     engines: {node: '>= 4'}
 
+  import-cwd@3.0.0:
+    resolution: {integrity: sha512-4pnzH16plW+hgvRECbDWpQl3cqtvSofHWh44met7ESfZ8UZOWWddm8hEyDTqREJ9RbYHY8gi8DqmaelApoOGMg==}
+    engines: {node: '>=8'}
+
   import-fresh@3.3.1:
     resolution: {integrity: sha512-TR3KfrTZTYLPB6jUjfx6MF9WcWrHL9su5TObK4ZkYgBdWKPOFoSoQIdEuTuR82pmtxH2spWG9h6etwfr1pLBqQ==}
     engines: {node: '>=6'}
+
+  import-from@3.0.0:
+    resolution: {integrity: sha512-CiuXOFFSzkU5x/CR0+z7T91Iht4CXgfCxVOFRhh2Zyhg5wOpWvvDLQUsWl+gcN+QscYBjez8hDCt85O7RLDttQ==}
+    engines: {node: '>=8'}
 
   import-lazy@4.0.0:
     resolution: {integrity: sha512-rKtvo6a868b5Hu3heneU+L4yEQ4jYKLtjpnPeUdK7h0yzXGmyBTypknlkCvHFBqfX9YlorEiMM6Dnq/5atfHkw==}
@@ -4095,6 +4122,29 @@ packages:
 
   linkify-it@4.0.1:
     resolution: {integrity: sha512-C7bfi1UZmoj8+PQx22XyeXCuBlokoyWQL5pWSP+EI6nzRylyThouddufc2c1NDIcP9k5agmN9fLpA7VNJfIiqw==}
+
+  lint-to-the-future-ember-template@3.1.0:
+    resolution: {integrity: sha512-MtSKzKEJqbORwnKjaezhdfBby+0w5sXnbCUKMzobvD+kjwoiVX2N1fiHVmno7j54uy2z2YmWGdz+26hAwQO+wQ==}
+    engines: {node: 18.* || 20.* || >= 22.*}
+    peerDependencies:
+      ember-template-lint: ^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0
+
+  lint-to-the-future-eslint@3.1.0:
+    resolution: {integrity: sha512-JejnF+vL2fy1orNBRZy+Ufwy7bWZge1dLatkVMVcLWwzwm4a1fI3cu85ydftCy08JSXVo4H0uLDwi1iMZHjT4A==}
+    engines: {node: 10.* || >= 12.*}
+    peerDependencies:
+      eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
+
+  lint-to-the-future-stylelint@2.1.0:
+    resolution: {integrity: sha512-lciqxUTRglzn7+62aX8Cgk2y2ytbVWE7w+A4byOnXMasYD/k9yZqjHcFaSVmlbHVGQsyGb6EyDr+wVgPwj2PZQ==}
+    engines: {node: 12.* || >= 14.*}
+    peerDependencies:
+      stylelint: ^13.0.0 || ^14.0.0 || >= 15.0.0
+
+  lint-to-the-future@2.6.3:
+    resolution: {integrity: sha512-SGApqILnOK0buxMe2J2PLATxBrvi/p0CryULFddWFmJZ+ZDdFtAjPKPj78NJkAZkFuM+CBdLSURv+Gx/KJ2BBw==}
+    engines: {node: '>= 18'}
+    hasBin: true
 
   livereload-js@3.4.1:
     resolution: {integrity: sha512-5MP0uUeVCec89ZbNOT/i97Mc+q3SxXmiUGhRFOTmhrGPn//uWVQdCvcLJDy64MSBR5MidFdOR7B9viumoavy6g==}
@@ -5819,6 +5869,12 @@ packages:
   temp@0.9.4:
     resolution: {integrity: sha512-yYrrsWnrXMcdsnu/7YMYAofM1ktpL5By7vZhf15CrXijWWrEYZks5AXBudalfSWJLlnen/QUJUB5aoB0kqZUGA==}
     engines: {node: '>=6.0.0'}
+
+  temporal-polyfill@0.2.5:
+    resolution: {integrity: sha512-ye47xp8Cb0nDguAhrrDS1JT1SzwEV9e26sSsrWzVu+yPZ7LzceEcH0i2gci9jWfOfSCCgM3Qv5nOYShVUUFUXA==}
+
+  temporal-spec@0.2.4:
+    resolution: {integrity: sha512-lDMFv4nKQrSjlkHKAlHVqKrBG4DyFfa9F74cmBZ3Iy3ed8yvWnlWSIdi4IKfSqwmazAohBNwiN64qGx4y5Q3IQ==}
 
   terser-webpack-plugin@5.3.14:
     resolution: {integrity: sha512-vkZjpUjb6OMS7dhV+tILUW6BhpDR7P2L/aQSAv+Uwk+m8KATX9EccViHTJR2qDtACKPIYndLGCyl3FMo+r2LMw==}
@@ -8998,6 +9054,8 @@ snapshots:
 
   commander@8.3.0: {}
 
+  commander@9.5.0: {}
+
   common-ancestor-path@1.0.1: {}
 
   commondir@1.0.1: {}
@@ -9077,6 +9135,8 @@ snapshots:
       safe-buffer: 5.2.1
 
   content-tag@2.0.3: {}
+
+  content-tag@3.1.3: {}
 
   content-type@1.0.5: {}
 
@@ -11283,10 +11343,18 @@ snapshots:
 
   ignore@7.0.5: {}
 
+  import-cwd@3.0.0:
+    dependencies:
+      import-from: 3.0.0
+
   import-fresh@3.3.1:
     dependencies:
       parent-module: 1.0.1
       resolve-from: 4.0.0
+
+  import-from@3.0.0:
+    dependencies:
+      resolve-from: 5.0.0
 
   import-lazy@4.0.0: {}
 
@@ -11760,6 +11828,37 @@ snapshots:
   linkify-it@4.0.1:
     dependencies:
       uc.micro: 1.0.6
+
+  lint-to-the-future-ember-template@3.1.0(ember-template-lint@6.1.0):
+    dependencies:
+      content-tag: 3.1.3
+      debug: 4.4.1
+      ember-template-lint: 6.1.0
+      globby: 14.1.0
+    transitivePeerDependencies:
+      - supports-color
+
+  lint-to-the-future-eslint@3.1.0(eslint@8.57.1):
+    dependencies:
+      eslint: 8.57.1
+      globby: 14.1.0
+      import-cwd: 3.0.0
+
+  lint-to-the-future-stylelint@2.1.0(stylelint@15.11.0(typescript@5.9.2)):
+    dependencies:
+      globby: 14.1.0
+      import-cwd: 3.0.0
+      stylelint: 15.11.0(typescript@5.9.2)
+
+  lint-to-the-future@2.6.3(encoding@0.1.13):
+    dependencies:
+      commander: 9.5.0
+      fs-extra: 7.0.1
+      import-cwd: 3.0.0
+      node-fetch: 2.7.0(encoding@0.1.13)
+      temporal-polyfill: 0.2.5
+    transitivePeerDependencies:
+      - encoding
 
   livereload-js@3.4.1: {}
 
@@ -13504,6 +13603,12 @@ snapshots:
     dependencies:
       mkdirp: 0.5.6
       rimraf: 2.6.3
+
+  temporal-polyfill@0.2.5:
+    dependencies:
+      temporal-spec: 0.2.4
+
+  temporal-spec@0.2.4: {}
 
   terser-webpack-plugin@5.3.14(webpack@5.99.9):
     dependencies:
