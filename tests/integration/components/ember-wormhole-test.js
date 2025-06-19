@@ -27,8 +27,8 @@ module('Integration | Component | ember wormhole', function(hooks) {
 
     await render(hbs`
       <div id="wormhole-destination-element"></div>
-      {{#if renderEnabled}}
-        {{#ember-wormhole renderInPlace=renderInPlace destinationElement=destinationElement}}
+      {{#if this.renderEnabled}}
+        {{#ember-wormhole renderInPlace=this.renderInPlace destinationElement=this.destinationElement}}
           <span id="wormhole-content">template block text</span>
         {{/ember-wormhole}}
       {{/if}}
@@ -53,7 +53,7 @@ module('Integration | Component | ember wormhole', function(hooks) {
 
     await render(hbs`
       <div id="wormhole-destination-element"></div>
-      {{#ember-wormhole renderInPlace=renderInPlace destinationElementId="wormhole-destination-element"}}
+      {{#ember-wormhole renderInPlace=this.renderInPlace destinationElementId="wormhole-destination-element"}}
         <span id="wormhole-content">template block text</span>
       {{/ember-wormhole}}
     `);
