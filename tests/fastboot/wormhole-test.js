@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { module, test } from 'qunit';
 import { setup, visit, /* mockServer */ } from 'ember-cli-fastboot-testing/test-support';
 

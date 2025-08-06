@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 function initialize(){
   if (typeof document !== 'undefined') {
     // In Ember 2.x, initialize is called only with `application` instead of `(container, application)`
