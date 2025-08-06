@@ -1,4 +1,4 @@
-# Change Log
+# Changelog
 
 ## [0.5.4](https://github.com/yapplabs/ember-wormhole/tree/0.5.4) (2018-09-20)
 [Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.5.4...0.5.4)
