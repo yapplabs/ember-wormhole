@@ -1,5 +1,22 @@
 # Changelog
 
+## Release (2025-08-07)
+
+* ember-wormhole 0.6.1 (patch)
+
+#### :memo: Documentation
+* `ember-wormhole`
+  * [#122](https://github.com/yapplabs/ember-wormhole/pull/122) Mention in-element ([@sandstrom](https://github.com/sandstrom))
+
+#### :house: Internal
+* `ember-wormhole`
+  * [#145](https://github.com/yapplabs/ember-wormhole/pull/145) start using release-plan ([@mansona](https://github.com/mansona))
+  * [#143](https://github.com/yapplabs/ember-wormhole/pull/143) swap to pnpm and use GitHub CI  ([@mansona](https://github.com/mansona))
+
+#### Committers: 2
+- Chris Manson ([@mansona](https://github.com/mansona))
+- [@sandstrom](https://github.com/sandstrom)
+
 ## [0.5.4](https://github.com/yapplabs/ember-wormhole/tree/0.5.4) (2018-09-20)
 [Full Changelog](https://github.com/yapplabs/ember-wormhole/compare/0.5.4...0.5.4)
 

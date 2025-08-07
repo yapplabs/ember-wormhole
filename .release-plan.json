@@ -1,0 +1,22 @@
+{
+  "solution": {
+    "ember-wormhole": {
+      "impact": "patch",
+      "oldVersion": "0.6.0",
+      "newVersion": "0.6.1",
+      "tagName": "latest",
+      "constraints": [
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :memo: Documentation"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :house: Internal"
+        }
+      ],
+      "pkgJSONPath": "./package.json"
+    }
+  },
+  "description": "## Release (2025-08-07)\n\n* ember-wormhole 0.6.1 (patch)\n\n#### :memo: Documentation\n* `ember-wormhole`\n  * [#122](https://github.com/yapplabs/ember-wormhole/pull/122) Mention in-element ([@sandstrom](https://github.com/sandstrom))\n\n#### :house: Internal\n* `ember-wormhole`\n  * [#145](https://github.com/yapplabs/ember-wormhole/pull/145) start using release-plan ([@mansona](https://github.com/mansona))\n  * [#143](https://github.com/yapplabs/ember-wormhole/pull/143) swap to pnpm and use GitHub CI  ([@mansona](https://github.com/mansona))\n\n#### Committers: 2\n- Chris Manson ([@mansona](https://github.com/mansona))\n- [@sandstrom](https://github.com/sandstrom)\n"
+}
