@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier, qunit/no-assert-equal, qunit/no-assert-logical-expression, qunit/no-ok-equality */
 import { set } from '@ember/object';
 import QUnit, { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';

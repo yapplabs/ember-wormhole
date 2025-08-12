@@ -1,3 +1,4 @@
+/* stylelint-disable declaration-block-no-duplicate-properties, font-family-name-quotes, function-no-unknown, no-duplicate-selectors, prettier/prettier, rule-empty-line-before */
 body {
   font-family: 'Trebuchet', 'Helvetica', sans-serif;
   font-size: 14px;
